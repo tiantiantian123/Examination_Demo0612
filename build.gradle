@@ -1,0 +1,24 @@
+group 'examination'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.5'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'javax:javaee-api:7.0'
+    compile 'mysql:mysql-connector-java:5.1.38'
+    compile 'jstl:jstl:1.2'
+    compile 'org.json:json:20151123'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+    compile 'com.google.code.gson:gson:2.5'
+    compile 'com.alibaba:fastjson:1.2.7'
+}
