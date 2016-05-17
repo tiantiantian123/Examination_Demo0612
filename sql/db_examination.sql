@@ -11,7 +11,8 @@ CREATE TABLE db_examination.admin (
   role     CHAR(1) COMMENT 's-system, t-teacher, a-administration'
 );
 
-INSERT INTO db_examination.admin VALUES (NULL, 'system@qq.com', 'system', '13do3DeGj6b8Nxf0l3+J/ER05/yQzbHHPkaIhb4m01f+p0nj14OrJEIts4K2qZ3m', 's');
+INSERT INTO db_examination.admin
+VALUES (NULL, 'system@qq.com', 'system', '13do3DeGj6b8Nxf0l3+J/ER05/yQzbHHPkaIhb4m01f+p0nj14OrJEIts4K2qZ3m', 's');
 
 -- table student
 DROP TABLE IF EXISTS db_examination.student;
@@ -52,3 +53,9 @@ FROM db_examination.student;
 
 SELECT *
 FROM db_examination.class;
+
+SELECT
+  s.username,
+  c.name
+FROM db_examination.student s INNER JOIN db_examination.class c
+    ON s.class_id = c.id;

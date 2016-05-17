@@ -25,8 +25,8 @@ public class StudentAction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if (action.equals("signUp")) {
-            signUp(req, resp);
+        if (action.equals("create")) {
+            create(req, resp);
         }
         if (action.equals("login")) {
             login(req, resp);
@@ -36,16 +36,20 @@ public class StudentAction extends HttpServlet {
         }
     }
 
-    protected void signUp(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String password = req.getParameter("password");
         StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
         password = encryptor.encryptPassword(password);
+        String photo = req.getParameter("photo");
+        int classId = Integer.parseInt(req.getParameter("classId"));
 
         Student student = new Student();
         student.setEmail(req.getParameter("email").trim());
         student.setUsername(req.getParameter("username").trim());
         student.setPassword(password);
+        student.setPhoto(photo);
         student.setLastIp(req.getRemoteAddr());
+        student.setClassId(classId);
 
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.insert("student.create", student);

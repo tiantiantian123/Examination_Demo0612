@@ -27,6 +27,17 @@ public class ClassAction extends HttpServlet {
         if (action.equals("create")) {
             create(req, resp);
         }
+        if (action.equals("queryAll")) {
+            queryAll(req, resp);
+        }
+    }
+
+    protected void queryAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try(SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)){
+            List<Class> classes = sqlSession.selectList("class.queryAll");
+            req.getSession().setAttribute("classes", classes);
+        }
+        resp.sendRedirect("/student/sign_up.jsp");
     }
 
     protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

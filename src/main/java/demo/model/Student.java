@@ -11,19 +11,23 @@ public class Student implements Serializable {
     private String email;
     private String username;
     private String password;
+    private String photo;
     private String lastIp;
     private String lastLogin;
+    private int classId;
 
     public Student() {
     }
 
-    public Student(Integer id, String email, String username, String password, String lastIp, String lastLogin) {
+    public Student(Integer id, String email, String username, String password, String photo, String lastIp, String lastLogin, int classId) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.photo = photo;
         this.lastIp = lastIp;
         this.lastLogin = lastLogin;
+        this.classId = classId;
     }
 
     public Integer getId() {
@@ -58,6 +62,14 @@ public class Student implements Serializable {
         this.password = password;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     public String getLastIp() {
         return lastIp;
     }
@@ -74,6 +86,14 @@ public class Student implements Serializable {
         this.lastLogin = lastLogin;
     }
 
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -81,8 +101,10 @@ public class Student implements Serializable {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", photo='" + photo + '\'' +
                 ", lastIp='" + lastIp + '\'' +
                 ", lastLogin='" + lastLogin + '\'' +
+                ", classId=" + classId +
                 '}';
     }
 }
