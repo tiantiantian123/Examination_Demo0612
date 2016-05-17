@@ -17,5 +17,7 @@
 </c:if>
 <h1>student index</h1>
 ${sessionScope.student.username}
+<hr>
+<a href="/student/edit_profile.jsp">EDIT PROFILE</a>
 </body>
 </html>
