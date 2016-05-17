@@ -3,6 +3,7 @@ package demo.service;
 import demo.model.Student;
 import demo.util.MyBatisSqlSession;
 import org.apache.ibatis.session.SqlSession;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +29,7 @@ public class UserService {
     public static void main(String[] args) {
 //        login();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(simpleDateFormat.format(new Date()));
+        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+        System.out.println(encryptor.encryptPassword("123"));
     }
 }

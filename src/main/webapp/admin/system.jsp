@@ -9,13 +9,13 @@
 <%@ include file="/common/inc.jsp"%>
 <html>
 <head>
-    <title>administration page</title>
+    <title>system page</title>
 </head>
 <body>
 <c:if test="${sessionScope.admin eq null}">
     <c:redirect url="/index.jsp"/>
 </c:if>
-<h1>administration</h1>
+<h1>system</h1>
 ${sessionScope.admin.username}
 </body>
 </html>

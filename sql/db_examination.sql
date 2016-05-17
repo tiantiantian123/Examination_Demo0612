@@ -11,8 +11,7 @@ CREATE TABLE db_examination.admin (
   role     CHAR(1) COMMENT 's-system, t-teacher, a-administration'
 );
 
-INSERT INTO db_examination.admin VALUES (NULL, 'teacher@qq.com', 'teacher', '123', 't');
-INSERT INTO db_examination.admin VALUES (NULL, 'administration@qq.com', 'administration', '123', 'a');
+INSERT INTO db_examination.admin VALUES (NULL, 'system@qq.com', 'system', '13do3DeGj6b8Nxf0l3+J/ER05/yQzbHHPkaIhb4m01f+p0nj14OrJEIts4K2qZ3m', 's');
 
 -- table student
 DROP TABLE IF EXISTS db_examination.student;
@@ -28,14 +27,29 @@ CREATE TABLE db_examination.student (
 );
 
 -- table class
-/*
-id
-name
-...
- */
+DROP TABLE IF EXISTS db_examination.class;
+CREATE TABLE db_examination.class (
+  id          INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name        VARCHAR(255),
+  schedule    VARCHAR(255),
+  start_date  DATE,
+  finish_date DATE
+);
 
+
+ALTER TABLE db_examination.student
+ADD CONSTRAINT
+  fk_student_class_id
+FOREIGN KEY (class_id)
+REFERENCES db_examination.class (id);
+
+
+SELECT *
+FROM db_examination.admin;
+/*
 SELECT *
 FROM db_examination.admin;
 
 SELECT *
 FROM db_examination.student;
+*/

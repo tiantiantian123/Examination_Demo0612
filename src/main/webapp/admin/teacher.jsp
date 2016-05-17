@@ -16,5 +16,6 @@
     <c:redirect url="/index.jsp"/>
 </c:if>
 <h1>teacher</h1>
+${sessionScope.admin.username}
 </body>
 </html>
