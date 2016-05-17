@@ -46,10 +46,9 @@ REFERENCES db_examination.class (id);
 
 SELECT *
 FROM db_examination.admin;
-/*
-SELECT *
-FROM db_examination.admin;
 
 SELECT *
 FROM db_examination.student;
-*/
+
+SELECT *
+FROM db_examination.class;

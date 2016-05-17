@@ -21,7 +21,7 @@ import java.util.List;
  * 下午2:04 16-5-12
  */
 @WebServlet(urlPatterns = "/admin")
-public class Adminction extends HttpServlet {
+public class AdminAction extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,8 +29,26 @@ public class Adminction extends HttpServlet {
         if (action.equals("login")) {
             login(req, resp);
         }
+        if (action.equals("create")) {
+            create(req, resp);
+        }
     }
 
+    protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email").trim();
+        String username = req.getParameter("username").trim();
+        String password = req.getParameter("password");
+        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+        password = encryptor.encryptPassword(password);
+        String role = req.getParameter("role");
+
+        Admin admin = new Admin(null, email, username, password, role);
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)){
+            sqlSession.insert("admin.create", admin);
+        }
+
+        resp.sendRedirect("/admin/system.jsp");
+    }
     protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");

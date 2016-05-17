@@ -17,5 +17,15 @@
 </c:if>
 <h1>system</h1>
 ${sessionScope.admin.username}
+<hr>
+<form action="/admin" method="post">
+    <input type="hidden" name="action" value="create">
+    <input type="text" name="email" placeholder="EMAIL"><br>
+    <input type="text" name="username" placeholder="USERNAME"><br>
+    <input type="password" name="password" placeholder="PASSWORD"><br>
+    <input type="radio" name="role" value="t">教师
+    <input type="radio" name="role" value="a">教务<br>
+    <input type="submit" value="CREATE">
+</form>
 </body>
 </html>
