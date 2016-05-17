@@ -8,7 +8,7 @@ CREATE TABLE db_examination.admin (
   email    VARCHAR(255) UNIQUE,
   username VARCHAR(255),
   password VARCHAR(255),
-  role     CHAR(1) COMMENT 't-teacher, a-administration'
+  role     CHAR(1) COMMENT 's-system, t-teacher, a-administration'
 );
 
 INSERT INTO db_examination.admin VALUES (NULL, 'teacher@qq.com', 'teacher', '123', 't');
@@ -21,9 +21,18 @@ CREATE TABLE db_examination.student (
   email      VARCHAR(255) UNIQUE,
   username   VARCHAR(255),
   password   VARCHAR(255),
+  photo      VARCHAR(255),
   last_ip    VARCHAR(255),
-  last_login DATETIME
+  last_login DATETIME,
+  class_id   INT(11) UNSIGNED
 );
+
+-- table class
+/*
+id
+name
+...
+ */
 
 SELECT *
 FROM db_examination.admin;
