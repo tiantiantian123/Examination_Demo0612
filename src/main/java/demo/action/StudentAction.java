@@ -1,7 +1,9 @@
 package demo.action;
 
 import demo.model.Student;
-import demo.util.DB;
+import demo.util.MyBatisSqlSession;
+import org.apache.ibatis.session.SqlSession;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,10 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator
@@ -36,58 +37,54 @@ public class StudentAction extends HttpServlet {
     }
 
     protected void signUp(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        String username = req.getParameter("username");
         String password = req.getParameter("password");
+        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+        password = encryptor.encryptPassword(password);
 
-        Connection connection = DB.getConnection();
-        PreparedStatement preparedStatement = null;
+        Student student = new Student();
+        student.setEmail(req.getParameter("email").trim());
+        student.setUsername(req.getParameter("username").trim());
+        student.setPassword(password);
+        student.setLastIp(req.getRemoteAddr());
 
-        String sql = "INSERT INTO db_examination.student VALUES (NULL, ?, ?, ?, ?, now())";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, username);
-            preparedStatement.setString(3, password);
-            preparedStatement.setString(4, req.getRemoteAddr());
-
-            preparedStatement.executeUpdate();
-            resp.sendRedirect("/index.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DB.close(null, preparedStatement, connection);
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
+            sqlSession.insert("student.create", student);
         }
+
+        resp.sendRedirect("/index.jsp");
     }
 
     protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        Connection connection = DB.getConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
+            List<Student> students = sqlSession.selectList("student.login", email);
+            if (students.size() == 1) {
+                Student student = students.get(0);
+                String encryptedPassword = student.getPassword();
+                StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+                if (encryptor.checkPassword(password, encryptedPassword)) {
 
-        String sql = "SELECT * FROM db_examination.student WHERE email = ? AND password = ?";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
+                    String lastIp = req.getRemoteAddr();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String lastLogin = simpleDateFormat.format(new Date());
 
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                Student student = new Student(resultSet.getInt("id"), resultSet.getString("email"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getString("last_ip"), resultSet.getString("last_login"));
-                req.getSession().setAttribute("student", student);
-                resp.sendRedirect("/student/index.jsp");
-            } else {
-                req.setAttribute("message", "email or password invalid.");
-                req.getRequestDispatcher("/index.jsp").forward(req, resp);
+                    // update student last_ip, last_login time
+                    student.setLastIp(lastIp);
+                    student.setLastLogin(lastLogin);
+                    sqlSession.update("student.last", student);
+                    sqlSession.commit();
+
+                    student.setPassword(null);
+                    req.getSession().setAttribute("student", student);
+                    resp.sendRedirect("/student/index.jsp");
+                    return;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DB.close(resultSet, preparedStatement, connection);
         }
+        req.setAttribute("message", "invalid email or password!");
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     protected void method(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

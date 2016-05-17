@@ -3,8 +3,8 @@ package demo.model;
 import java.io.Serializable;
 
 /**
- * Created by Administrator
- * 下午2:08 16-5-12
+ * Created by non-perfectionist
+ * 9:41 2016/5/16.
  */
 public class Student implements Serializable {
     private Integer id;

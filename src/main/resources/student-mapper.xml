@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+    <insert id="create" parameterType="demo.model.Student" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_examination.student VALUES (NULL, #{email}, #{username}, #{password}, #{lastIp}, now())
+    </insert>
+    <select id="login" parameterType="String" resultType="demo.model.Student">
+        SELECT * FROM db_examination.student WHERE email = #{email}
+    </select>
+    <update id="last" parameterType="demo.model.Student">
+        UPDATE db_examination.student SET last_ip = #{lastIp}, last_login = #{lastLogin} WHERE id = #{id}
+    </update>
+</mapper>
