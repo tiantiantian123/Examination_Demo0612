@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,9 +58,16 @@ public class ClassAction extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name").trim();
         String schedule = req.getParameter("schedule").trim();
-        String startDate = req.getParameter("startDate");
-        String finishDate = req.getParameter("finishDate");
-
+        String startDateString = req.getParameter("startDate");
+        String finishDateString = req.getParameter("finishDate");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        Date startDate = null, finishDate = null;
+        try {
+            startDate = simpleDateFormat.parse(startDateString);
+            finishDate = simpleDateFormat.parse(finishDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Class aClass = new Class(id, name, schedule, startDate, finishDate);
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.update("class.update", aClass);
@@ -93,9 +103,16 @@ public class ClassAction extends HttpServlet {
     protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name").trim();
         String schedule = req.getParameter("schedule").trim();
-        String startDate = req.getParameter("startDate");
-        String finishDate = req.getParameter("finishDate");
-
+        String startDateString = req.getParameter("startDate");
+        String finishDateString = req.getParameter("finishDate");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = null, finishDate = null;
+        try {
+            startDate = simpleDateFormat.parse(startDateString);
+            finishDate = simpleDateFormat.parse(finishDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Class aClass = new Class(null, name, schedule, startDate, finishDate);
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.insert("class.create", aClass);

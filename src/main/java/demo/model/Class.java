@@ -1,6 +1,7 @@
 package demo.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Administrator
@@ -10,13 +11,13 @@ public class Class implements Serializable {
     private Integer id;
     private String name;
     private String schedule;
-    private String startDate;
-    private String finishDate;
+    private Date startDate;
+    private Date finishDate;
 
     public Class() {
     }
 
-    public Class(Integer id, String name, String schedule, String startDate, String finishDate) {
+    public Class(Integer id, String name, String schedule, Date startDate, Date finishDate) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
@@ -48,19 +49,19 @@ public class Class implements Serializable {
         this.schedule = schedule;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getFinishDate() {
+    public Date getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(String finishDate) {
+    public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
     }
 
@@ -70,8 +71,8 @@ public class Class implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", schedule='" + schedule + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", finishDate='" + finishDate + '\'' +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
                 '}';
     }
 }
