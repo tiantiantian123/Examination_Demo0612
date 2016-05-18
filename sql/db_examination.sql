@@ -5,7 +5,7 @@ CREATE DATABASE db_examination;
 DROP TABLE IF EXISTS db_examination.admin;
 CREATE TABLE db_examination.admin (
   id       INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  email    VARCHAR(255) UNIQUE,
+  email    VARCHAR(191) UNIQUE,
   username VARCHAR(255),
   password VARCHAR(255),
   role     CHAR(1) COMMENT 's-system, t-teacher, a-administration'
@@ -18,7 +18,7 @@ VALUES (NULL, 'system@qq.com', 'system', '13do3DeGj6b8Nxf0l3+J/ER05/yQzbHHPkaIhb
 DROP TABLE IF EXISTS db_examination.student;
 CREATE TABLE db_examination.student (
   id         INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  email      VARCHAR(255) UNIQUE,
+  email      VARCHAR(191) UNIQUE,
   username   VARCHAR(255),
   password   VARCHAR(255),
   photo      VARCHAR(255),

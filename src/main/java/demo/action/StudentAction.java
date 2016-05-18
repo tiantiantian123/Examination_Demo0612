@@ -3,7 +3,6 @@ package demo.action;
 import demo.model.Student;
 import demo.util.MyBatisSqlSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ibatis.session.SqlSession;
@@ -36,9 +35,6 @@ public class StudentAction extends HttpServlet {
         }
         if (action.equals("login")) {
             login(req, resp);
-        }
-        if (action.equals("signUp")) {
-            method(req, resp);
         }
         if (action.equals("update")) {
             update(req, resp);
@@ -140,10 +136,6 @@ public class StudentAction extends HttpServlet {
         }
         req.setAttribute("message", "invalid email or password!");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
-    }
-
-    protected void method(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     @Override

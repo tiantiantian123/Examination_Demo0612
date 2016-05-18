@@ -1,7 +1,6 @@
 package demo.action;
 
 import demo.model.Admin;
-import demo.model.Student;
 import demo.util.MyBatisSqlSession;
 import org.apache.ibatis.session.SqlSession;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,10 +75,6 @@ public class AdminAction extends HttpServlet {
         }
         req.setAttribute("message", "invalid email or password!");
         req.getRequestDispatcher("/admin/index.jsp").forward(req, resp);
-    }
-
-    protected void method(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     @Override

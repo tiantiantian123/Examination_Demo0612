@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,15 +57,7 @@ public class ClassAction extends HttpServlet {
         String schedule = req.getParameter("schedule").trim();
         String startDateString = req.getParameter("startDate");
         String finishDateString = req.getParameter("finishDate");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        Date startDate = null, finishDate = null;
-        try {
-            startDate = simpleDateFormat.parse(startDateString);
-            finishDate = simpleDateFormat.parse(finishDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Class aClass = new Class(id, name, schedule, startDate, finishDate);
+        Class aClass = new Class(id, name, schedule, startDateString, finishDateString);
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.update("class.update", aClass);
         }
@@ -84,16 +73,16 @@ public class ClassAction extends HttpServlet {
     }
 
     protected void queryAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        listAll(req, resp);
+        listAll(req);
         resp.sendRedirect("/admin/administration.jsp");
     }
 
     protected void queryAllClasses(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        listAll(req, resp);
+        listAll(req);
         resp.sendRedirect("/student/sign_up.jsp");
     }
 
-    private void listAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void listAll(HttpServletRequest req){
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
             List<Class> classes = sqlSession.selectList("class.queryAll");
             req.getSession().setAttribute("classes", classes);
@@ -105,15 +94,7 @@ public class ClassAction extends HttpServlet {
         String schedule = req.getParameter("schedule").trim();
         String startDateString = req.getParameter("startDate");
         String finishDateString = req.getParameter("finishDate");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = null, finishDate = null;
-        try {
-            startDate = simpleDateFormat.parse(startDateString);
-            finishDate = simpleDateFormat.parse(finishDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Class aClass = new Class(null, name, schedule, startDate, finishDate);
+        Class aClass = new Class(null, name, schedule, startDateString, finishDateString);
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.insert("class.create", aClass);
         }
