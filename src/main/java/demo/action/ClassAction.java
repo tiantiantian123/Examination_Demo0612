@@ -1,10 +1,8 @@
 package demo.action;
 
-import demo.model.Admin;
 import demo.model.Class;
 import demo.util.MyBatisSqlSession;
 import org.apache.ibatis.session.SqlSession;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,17 +25,69 @@ public class ClassAction extends HttpServlet {
         if (action.equals("create")) {
             create(req, resp);
         }
+        if (action.equals("queryAllClasses")) {
+            queryAllClasses(req, resp);
+        }
         if (action.equals("queryAll")) {
             queryAll(req, resp);
         }
+        if (action.equals("search")) {
+            search(req, resp);
+        }
+        if (action.equals("update")) {
+            update(req, resp);
+        }
+        if (action.equals("remove")) {
+            remove(req, resp);
+        }
+    }
+
+    protected void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
+            Class aClass = sqlSession.selectOne("class.search", id);
+            req.getSession().setAttribute("aClass", aClass);
+        }
+        resp.sendRedirect("/admin/edit_class.jsp");
+    }
+
+    protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name").trim();
+        String schedule = req.getParameter("schedule").trim();
+        String startDate = req.getParameter("startDate");
+        String finishDate = req.getParameter("finishDate");
+
+        Class aClass = new Class(id, name, schedule, startDate, finishDate);
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
+            sqlSession.update("class.update", aClass);
+        }
+        resp.sendRedirect("/class?action=queryAll");
+    }
+
+    protected void remove(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
+            sqlSession.delete("class.remove", id);
+        }
+        resp.sendRedirect("/class?action=queryAll");
     }
 
     protected void queryAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try(SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)){
+        listAll(req, resp);
+        resp.sendRedirect("/admin/administration.jsp");
+    }
+
+    protected void queryAllClasses(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        listAll(req, resp);
+        resp.sendRedirect("/student/sign_up.jsp");
+    }
+
+    private void listAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
             List<Class> classes = sqlSession.selectList("class.queryAll");
             req.getSession().setAttribute("classes", classes);
         }
-        resp.sendRedirect("/student/sign_up.jsp");
     }
 
     protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -47,11 +97,11 @@ public class ClassAction extends HttpServlet {
         String finishDate = req.getParameter("finishDate");
 
         Class aClass = new Class(null, name, schedule, startDate, finishDate);
-        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)){
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.insert("class.create", aClass);
         }
 
-        resp.sendRedirect("/admin/administration.jsp");
+        resp.sendRedirect("/class?action=queryAll");
     }
 
     @Override

@@ -70,7 +70,7 @@ public class AdminAction extends HttpServlet {
                         resp.sendRedirect("/admin/teacher.jsp");
                     }
                     if (role.equals("a")) {
-                        resp.sendRedirect("/admin/administration.jsp");
+                        resp.sendRedirect("/class?action=queryAll");
                     }
                     return;
                 }

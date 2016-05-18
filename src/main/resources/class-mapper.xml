@@ -9,4 +9,13 @@
     <select id="queryAll" resultType="demo.model.Class">
         SELECT * FROM db_examination.class
     </select>
+    <select id="search" parameterType="int" resultType="demo.model.Class">
+        SELECT * FROM db_examination.class WHERE id = #{id}
+    </select>
+    <update id="update" parameterType="demo.model.Class">
+        UPDATE db_examination.class SET name = #{name}, schedule = #{schedule}, start_date = #{startDate}, finish_date = #{finishDate} WHERE id = #{id}
+    </update>
+    <delete id="remove" parameterType="int">
+        DELETE FROM db_examination.class WHERE id = #{id}
+    </delete>
 </mapper>

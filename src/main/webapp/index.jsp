@@ -20,6 +20,6 @@
 </form>
 ${requestScope.message}
 <hr>
-<a href="/class?action=queryAll">SIGN UP</a>
+<a href="/class?action=queryAllClasses">SIGN UP</a>
 </body>
 </html>

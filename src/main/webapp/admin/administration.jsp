@@ -10,6 +10,14 @@
 <html>
 <head>
     <title>administration page</title>
+    <script src="/static/js/jquery-1.12.3.min.js"></script>
+    <script>
+        $(function () {
+            $('.remove').click(function () {
+                return confirm("DEL?");
+            });
+        });
+    </script>
 </head>
 <body>
 <c:if test="${sessionScope.admin eq null}">
@@ -26,5 +34,27 @@ ${sessionScope.admin.username}
     <input type="date" name="finishDate" placeholder="FINISH DATE"><br>
     <input type="submit" value="CREATE">
 </form>
+<hr>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>SCHEDULE</th>
+        <th>START DATE</th>
+        <th>FINISH DATE</th>
+        <th colspan="2">OPERATION</th>
+    </tr>
+    <c:forEach var="aClass" items="${sessionScope.classes}" varStatus="vs">
+        <tr>
+            <td>${vs.count}</td>
+            <td><a href="/student?action=queryStudentsByClassId&id=${aClass.id}">${aClass.name}</a></td>
+            <td>${aClass.schedule}</td>
+            <td>${aClass.startDate}</td>
+            <td>${aClass.finishDate}</td>
+            <td><a href="/class?action=search&id=${aClass.id}">EDIT</a></td>
+            <td><a class="remove" href="/class?action=remove&id=${aClass.id}">REMOVE</a></td>
+        </tr>
+    </c:forEach>
+</table>
 </body>
 </html>
