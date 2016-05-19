@@ -42,7 +42,7 @@ public class ClassAction extends HttpServlet {
         }
     }
 
-    protected void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
             Class aClass = sqlSession.selectOne("class.search", id);
@@ -51,7 +51,7 @@ public class ClassAction extends HttpServlet {
         resp.sendRedirect("/assistant/edit_class.jsp");
     }
 
-    protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name").trim();
         String startDateString = req.getParameter("startDate");
@@ -63,7 +63,7 @@ public class ClassAction extends HttpServlet {
         resp.sendRedirect("/class?action=queryAll");
     }
 
-    protected void remove(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void remove(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.delete("class.remove", id);
@@ -71,12 +71,12 @@ public class ClassAction extends HttpServlet {
         resp.sendRedirect("/class?action=queryAll");
     }
 
-    protected void queryAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void queryAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         listAll(req);
         resp.sendRedirect("/assistant/assistant.jsp");
     }
 
-    protected void queryAllClasses(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void queryAllClasses(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         listAll(req);
         resp.sendRedirect("/student/sign_up.jsp");
     }
@@ -88,7 +88,7 @@ public class ClassAction extends HttpServlet {
         }
     }
 
-    protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name").trim();
         String startDateString = req.getParameter("startDate");
         String finishDateString = req.getParameter("finishDate");

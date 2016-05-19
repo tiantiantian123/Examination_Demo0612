@@ -41,7 +41,7 @@ public class StudentAction extends HttpServlet {
         }
     }
 
-    protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
         ServletContext servletContext  = this.getServletConfig().getServletContext();
@@ -83,7 +83,7 @@ public class StudentAction extends HttpServlet {
 
     }
 
-    protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String password = req.getParameter("password");
         StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
         password = encryptor.encryptPassword(password);
