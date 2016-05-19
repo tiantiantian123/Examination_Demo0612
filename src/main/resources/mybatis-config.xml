@@ -20,10 +20,10 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="admin-mapper.xml"/>
-        <mapper resource="teacher-mapper.xml"/>
-        <mapper resource="assistant-mapper.xml"/>
-        <mapper resource="class-mapper.xml"/>
-        <mapper resource="student-mapper.xml"/>
+        <mapper resource="mapper/admin-mapper.xml"/>
+        <mapper resource="mapper/teacher-mapper.xml"/>
+        <mapper resource="mapper/assistant-mapper.xml"/>
+        <mapper resource="mapper/class-mapper.xml"/>
+        <mapper resource="mapper/student-mapper.xml"/>
     </mappers>
 </configuration>
