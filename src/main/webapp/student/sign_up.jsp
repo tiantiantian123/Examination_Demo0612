@@ -35,13 +35,13 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="email">邮箱</label>
             <div class="col-sm-4">
-                <input class="form-control" id="email" type="text" name="email">
+                <input class="form-control" id="email" type="text" name="email" value="student@qq.com">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="password">密码</label>
             <div class="col-sm-4">
-                <input class="form-control" id="password" type="password" name="password">
+                <input class="form-control" id="password" type="password" name="password" value="123">
             </div>
         </div>
         <div class="form-group">
