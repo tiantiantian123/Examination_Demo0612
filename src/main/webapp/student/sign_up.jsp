@@ -19,8 +19,8 @@
     <div class="jumbotron">
         <h1 class="text-center">学生注册</h1>
     </div>
-    <form class="well form-horizontal" action="${ctx}/student" method="post">
-        <input type="hidden" name="action" value="create">
+    <form class="well form-horizontal" action="${ctx}/studentController/signUp" method="post">
+        <%--<input type="hidden" name="action" value="create">--%>
         <div class="form-group">
 
             <label class="control-label col-sm-2" for="classId">班级</label>
