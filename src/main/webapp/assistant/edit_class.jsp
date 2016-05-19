@@ -16,7 +16,6 @@
     <input type="hidden" name="action" value="update">
     <input type="hidden" name="id" value="${sessionScope.aClass.id}">
     <input type="text" name="name" placeholder="NAME" value="${sessionScope.aClass.name}"><br>
-    <input type="text" name="schedule" placeholder="SCHEDULE" value="${sessionScope.aClass.schedule}"><br>
     <input type="date" name="startDate" placeholder="START DATE" value="${sessionScope.aClass.startDate}"><br>
     <input type="date" name="finishDate" placeholder="FINISH DATE" value="${sessionScope.aClass.finishDate}"><br>
     <input type="submit" value="UPDATE">

@@ -48,16 +48,15 @@ public class ClassAction extends HttpServlet {
             Class aClass = sqlSession.selectOne("class.search", id);
             req.getSession().setAttribute("aClass", aClass);
         }
-        resp.sendRedirect("/admin/edit_class.jsp");
+        resp.sendRedirect("/assistant/edit_class.jsp");
     }
 
     protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name").trim();
-        String schedule = req.getParameter("schedule").trim();
         String startDateString = req.getParameter("startDate");
         String finishDateString = req.getParameter("finishDate");
-        Class aClass = new Class(id, name, schedule, startDateString, finishDateString);
+        Class aClass = new Class(id, name, startDateString, finishDateString);
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.update("class.update", aClass);
         }
@@ -74,7 +73,7 @@ public class ClassAction extends HttpServlet {
 
     protected void queryAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         listAll(req);
-        resp.sendRedirect("/admin/administration.jsp");
+        resp.sendRedirect("/assistant/assistant.jsp");
     }
 
     protected void queryAllClasses(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -91,10 +90,9 @@ public class ClassAction extends HttpServlet {
 
     protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name").trim();
-        String schedule = req.getParameter("schedule").trim();
         String startDateString = req.getParameter("startDate");
         String finishDateString = req.getParameter("finishDate");
-        Class aClass = new Class(null, name, schedule, startDateString, finishDateString);
+        Class aClass = new Class(null, name, startDateString, finishDateString);
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
             sqlSession.insert("class.create", aClass);
         }

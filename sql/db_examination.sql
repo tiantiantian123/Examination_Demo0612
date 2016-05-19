@@ -4,7 +4,7 @@ CREATE DATABASE db_examination;
 -- table admin
 DROP TABLE IF EXISTS db_examination.admin;
 CREATE TABLE db_examination.admin (
-  id       INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
   email    VARCHAR(191) NOT NULL  UNIQUE
   COMMENT '邮箱',
@@ -18,7 +18,7 @@ CREATE TABLE db_examination.admin (
 -- table teacher
 DROP TABLE IF EXISTS db_examination.teacher;
 CREATE TABLE db_examination.teacher (
-  id       INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
   email    VARCHAR(191) NOT NULL  UNIQUE
   COMMENT '邮箱',
@@ -32,7 +32,7 @@ CREATE TABLE db_examination.teacher (
 -- table assistant
 DROP TABLE IF EXISTS db_examination.assistant;
 CREATE TABLE db_examination.assistant (
-  id       INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
   email    VARCHAR(191) NOT NULL  UNIQUE
   COMMENT '邮箱',
@@ -44,12 +44,12 @@ CREATE TABLE db_examination.assistant (
   COMMENT '教务表';
 
 INSERT INTO db_examination.admin
-VALUES (NULL, 'system@qq.com', 'system', '13do3DeGj6b8Nxf0l3+J/ER05/yQzbHHPkaIhb4m01f+p0nj14OrJEIts4K2qZ3m');
+VALUES (NULL, 'admin@qq.com', 'admin', '13do3DeGj6b8Nxf0l3+J/ER05/yQzbHHPkaIhb4m01f+p0nj14OrJEIts4K2qZ3m');
 
 -- table class
 DROP TABLE IF EXISTS db_examination.class;
 CREATE TABLE db_examination.class (
-  id         INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
   name       VARCHAR(255) NOT NULL
   COMMENT '班级名称',
@@ -63,7 +63,7 @@ CREATE TABLE db_examination.class (
 -- table student
 DROP TABLE IF EXISTS db_examination.student;
 CREATE TABLE db_examination.student (
-  id         INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
   email      VARCHAR(191) NOT NULL UNIQUE
   COMMENT '邮箱',
@@ -89,7 +89,7 @@ CREATE TABLE db_examination.student (
   COMMENT '最后登录IP',
   lastLogin  DATETIME     NOT NULL
   COMMENT '最后登录时间',
-  classId    INT(11) UNSIGNED COMMENT 'FK 班级ID'
+  classId    INT UNSIGNED COMMENT 'FK 班级ID'
 )
   COMMENT '学生表';
 
@@ -102,6 +102,12 @@ REFERENCES db_examination.class (id);
 
 SELECT *
 FROM db_examination.admin;
+
+SELECT *
+FROM db_examination.teacher;
+
+SELECT *
+FROM db_examination.assistant;
 
 SELECT *
 FROM db_examination.student;

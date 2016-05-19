@@ -3,24 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="class">
-    <resultMap id="class" type="demo.model.Class">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="schedule" property="schedule"/>
-        <result column="start_date" property="startDate"/>
-        <result column="finish_date" property="finishDate"/>
-    </resultMap>
     <insert id="create" parameterType="demo.model.Class" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO db_examination.class VALUES(NULL, #{name}, #{schedule}, #{startDate}, #{finishDate})
+        INSERT INTO db_examination.class VALUES(NULL, #{name}, #{startDate}, #{finishDate})
     </insert>
-    <select id="queryAll" resultMap="class">
+    <select id="queryAll" resultType="demo.model.Class">
         SELECT * FROM db_examination.class
     </select>
     <select id="search" parameterType="int" resultType="demo.model.Class">
         SELECT * FROM db_examination.class WHERE id = #{id}
     </select>
     <update id="update" parameterType="demo.model.Class">
-        UPDATE db_examination.class SET name = #{name}, schedule = #{schedule}, start_date = #{startDate}, finish_date = #{finishDate} WHERE id = #{id}
+        UPDATE db_examination.class SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate} WHERE id = #{id}
     </update>
     <delete id="remove" parameterType="int">
         DELETE FROM db_examination.class WHERE id = #{id}

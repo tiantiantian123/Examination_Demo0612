@@ -6,7 +6,10 @@
     <select id="login" parameterType="String" resultType="demo.model.Admin">
         SELECT * FROM db_examination.admin WHERE email = #{email}
     </select>
-    <insert id="create" parameterType="demo.model.Admin" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO db_examination.admin VALUES(NULL, #{email}, #{username}, #{password}, #{role})
+    <insert id="createAssistant" parameterType="demo.model.Assistant" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_examination.assistant VALUES(NULL, #{email}, #{username}, #{password})
+    </insert>
+    <insert id="createTeacher" parameterType="demo.model.Teacher" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_examination.teacher VALUES(NULL, #{email}, #{username}, #{password})
     </insert>
 </mapper>

@@ -10,17 +10,15 @@ import java.util.Date;
 public class Class implements Serializable {
     private Integer id;
     private String name;
-    private String schedule;
     private String startDate;
     private String finishDate;
 
     public Class() {
     }
 
-    public Class(Integer id, String name, String schedule, String startDate, String finishDate) {
+    public Class(Integer id, String name, String startDate, String finishDate) {
         this.id = id;
         this.name = name;
-        this.schedule = schedule;
         this.startDate = startDate;
         this.finishDate = finishDate;
     }
@@ -39,14 +37,6 @@ public class Class implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
     }
 
     public String getStartDate() {
@@ -70,7 +60,6 @@ public class Class implements Serializable {
         return "Class{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", schedule='" + schedule + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", finishDate='" + finishDate + '\'' +
                 '}';

@@ -9,15 +9,15 @@
 <%@ include file="/common/inc.jsp"%>
 <html>
 <head>
-    <title>admin index page</title>
+    <title>assistant index page</title>
 </head>
 <body>
-<h1>admin index</h1>
-<form action="/admin" method="post">
+<h1>assistant index</h1>
+<form action="/assistant" method="post">
     <input type="hidden" name="action" value="login">
-    <input type="text" name="email" placeholder="EMAIL" value="admin@qq.com"><br>
+    <input type="text" name="email" placeholder="EMAIL" value="assistant@qq.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
-    <input type="submit" value="ADMIN LOGIN">
+    <input type="submit" value="ASSISTANT LOGIN">
 </form>
 ${requestScope.message}
 </body>

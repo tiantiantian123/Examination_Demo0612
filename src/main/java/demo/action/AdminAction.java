@@ -1,6 +1,8 @@
 package demo.action;
 
 import demo.model.Admin;
+import demo.model.Assistant;
+import demo.model.Teacher;
 import demo.util.MyBatisSqlSession;
 import org.apache.ibatis.session.SqlSession;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -26,27 +28,43 @@ public class AdminAction extends HttpServlet {
         if (action.equals("login")) {
             login(req, resp);
         }
-        if (action.equals("create")) {
-            create(req, resp);
+        if (action.equals("createAssistant")) {
+            createAssistant(req, resp);
+        }
+        if (action.equals("createTeacher")) {
+            createTeacher(req, resp);
         }
     }
 
-    protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void createAssistant(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email").trim();
         String username = req.getParameter("username").trim();
         String password = req.getParameter("password");
         StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
         password = encryptor.encryptPassword(password);
-        String role = req.getParameter("role");
 
-        Admin admin = new Admin(null, email, username, password, role);
-        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)){
-            sqlSession.insert("admin.create", admin);
+        Assistant assistant = new Assistant(null, email, username, password);
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
+            sqlSession.insert("admin.createAssistant", assistant);
         }
-
-        resp.sendRedirect("/admin/system.jsp");
+        resp.sendRedirect("/admin/admin.jsp");
     }
-    protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    private void createTeacher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email").trim();
+        String username = req.getParameter("username").trim();
+        String password = req.getParameter("password");
+        StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+        password = encryptor.encryptPassword(password);
+
+        Teacher teacher = new Teacher(null, email, username, password);
+        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(true)) {
+            sqlSession.insert("admin.createTeacher", teacher);
+        }
+        resp.sendRedirect("/admin/admin.jsp");
+    }
+
+    private void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
@@ -59,16 +77,7 @@ public class AdminAction extends HttpServlet {
                 if (encryptor.checkPassword(password, encryptedPassword)) {
                     admin.setPassword(null);
                     req.getSession().setAttribute("admin", admin);
-                    String role = admin.getRole();
-                    if (role.equals("s")) {
-                        resp.sendRedirect("/admin/system.jsp");
-                    }
-                    if (role.equals("t")) {
-                        resp.sendRedirect("/admin/teacher.jsp");
-                    }
-                    if (role.equals("a")) {
-                        resp.sendRedirect("/class?action=queryAll");
-                    }
+                    resp.sendRedirect("/admin/admin.jsp");
                     return;
                 }
             }

@@ -20,6 +20,10 @@
 </form>
 ${requestScope.message}
 <hr>
-<a href="/class?action=queryAllClasses">SIGN UP</a>
+<a href="/class?action=queryAllClasses">STUDENT SIGN UP</a>
+<hr>
+<a href="/admin/index.jsp">ADMIN LOGIN</a><br>
+<a href="/teacher/index.jsp">TEACHER LOGIN</a><br>
+<a href="/assistant/index.jsp">ASSISTANT LOGIN</a><br>
 </body>
 </html>

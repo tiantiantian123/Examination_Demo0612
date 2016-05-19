@@ -5,16 +5,16 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 16-5-19.
  */
-public class Admin implements Serializable {
+public class Assistant implements Serializable {
     private Integer id;
     private String email;
     private String username;
     private String password;
 
-    public Admin() {
+    public Assistant() {
     }
 
-    public Admin(Integer id, String email, String username, String password) {
+    public Assistant(Integer id, String email, String username, String password) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -55,7 +55,7 @@ public class Admin implements Serializable {
 
     @Override
     public String toString() {
-        return "Admin{" +
+        return "Assistant{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
