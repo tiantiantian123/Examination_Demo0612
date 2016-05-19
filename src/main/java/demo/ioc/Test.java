@@ -1,5 +1,7 @@
 package demo.ioc;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -19,7 +21,11 @@ public class Test {
 //        business.saveData();
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        Business business = (Business) applicationContext.getBean("business");
-        business.saveData();
+//        Business business = (Business) applicationContext.getBean("business");
+//        business.saveData();
+
+        SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) applicationContext.getBean("sqlSessionFactory");
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        sqlSession.delete("class.remove", 1);
     }
 }

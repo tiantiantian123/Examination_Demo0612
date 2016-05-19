@@ -3,16 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="class">
-    <insert id="create" parameterType="demo.model.Class" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="class" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.class VALUES(NULL, #{name}, #{startDate}, #{finishDate})
     </insert>
-    <select id="queryAll" resultType="demo.model.Class">
+    <select id="queryAll" resultType="class">
         SELECT * FROM db_examination.class
     </select>
-    <select id="search" parameterType="int" resultType="demo.model.Class">
+    <select id="search" parameterType="int" resultType="class">
         SELECT * FROM db_examination.class WHERE id = #{id}
     </select>
-    <update id="update" parameterType="demo.model.Class">
+    <update id="update" parameterType="class">
         UPDATE db_examination.class SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate} WHERE id = #{id}
     </update>
     <delete id="remove" parameterType="int">
