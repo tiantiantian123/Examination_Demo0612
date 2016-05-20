@@ -8,24 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+
 /**
  * Created by Administrator on 16-5-20.
  */
 
 @Controller
 @RequestMapping("/studentController")
-public class StudentController {
+public class StudentController extends BaseController {
 
     @Autowired // 自动装配
     private SqlSessionFactory sqlSessionFactory;
 
     @RequestMapping("/create")
-    private void create(Student student) {
+    private void create(Student student) throws IOException {
         System.out.println(student);
-        student.setLastIp("1.2.3.4");
+        student.setLastIp(request.getRemoteAddr());
         StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
         student.setPassword(encryptor.encryptPassword(student.getPassword()));
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.insert("student.create", student);
+        response.sendRedirect("/index.jsp");
     }
 }

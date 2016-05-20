@@ -32,6 +32,6 @@
     </select>
     <update id="last" parameterType="demo.model.Student">
         UPDATE db_examination.student
-        SET last_ip = #{lastIp}, last_login = #{lastLogin} WHERE id = #{id}
+        SET lastIp = #{lastIp}, lastLogin = #{lastLogin} WHERE id = #{id}
     </update>
 </mapper>
