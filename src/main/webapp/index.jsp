@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>首页</h1>
-<form action="/student" method="post">
-    <input type="hidden" name="action" value="login">
+<form action="${ctx}/studentController/login" method="post">
     <input type="text" name="email" placeholder="EMAIL" value="student@qq.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
     <input type="submit" value="学生登录">
@@ -16,8 +15,8 @@ ${requestScope.message}
 <hr>${ctx}
 <a href="${ctx}/class?action=queryAllClasses">学生注册</a>
 <hr>
-<a href="/admin/index.jsp">管理员登录</a><br>
-<a href="/teacher/index.jsp">教师登录</a><br>
-<a href="/assistant/index.jsp">教务登录</a><br>
+<a href="${ctx}/admin/index.jsp">管理员登录</a><br>
+<a href="${ctx}/teacher/index.jsp">教师登录</a><br>
+<a href="${ctx}/assistant/index.jsp">教务登录</a><br>
 </body>
 </html>

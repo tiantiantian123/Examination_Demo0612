@@ -1,19 +1,22 @@
 package demo.controller;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-/**
- * Created by Administrator on 16-5-20.
- */
 
 @Controller
 @RequestMapping("/classController")
 public class ClassController extends BaseController {
 
+    @Autowired
+    private SqlSessionFactory sqlSessionFactory;
+
     @RequestMapping("/remove/{id}")
     private void remove(@PathVariable int id) {
         System.out.println("id: " + id);
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
     }
 }
