@@ -42,7 +42,7 @@ ${sessionScope.assistant.username}
             <td>${aClass.startDate}</td>
             <td>${aClass.finishDate}</td>
             <td><a href="/class?action=search&id=${aClass.id}">EDIT</a></td>
-            <td><a class="remove" href="/class?action=remove&id=${aClass.id}">REMOVE</a></td>
+            <td><a class="remove" href="${ctx}/classController/remove/${aClass.id}">REMOVE</a></td>
         </tr>
     </c:forEach>
 </table>
