@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="common/inc.jsp"%>
 <html>
 <head>
     <title>首页 - 在线考试</title>
@@ -12,8 +13,8 @@
     <input type="submit" value="学生登录">
 </form>
 ${requestScope.message}
-<hr>
-<a href="/class?action=queryAllClasses">学生注册</a>
+<hr>${ctx}
+<a href="${ctx}/class?action=queryAllClasses">学生注册</a>
 <hr>
 <a href="/admin/index.jsp">管理员登录</a><br>
 <a href="/teacher/index.jsp">教师登录</a><br>

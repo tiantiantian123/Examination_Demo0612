@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="student">
-    <insert id="create" parameterType="demo.model.Student" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="student" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.student VALUES (
             NULL,
             #{email},
