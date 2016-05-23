@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class GenericDaoImpl<M> implements GenericDao<M> {
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
+    @Resource
+    private SqlSession sqlSession;
+
     private String namespace;
 
     public GenericDaoImpl() {
@@ -26,7 +30,7 @@ public class GenericDaoImpl<M> implements GenericDao<M> {
 
     @Override
     public void create(M model) {
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+//        SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.insert(namespace + ".create", model);
     }
 
