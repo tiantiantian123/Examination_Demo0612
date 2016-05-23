@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>teacher index</h1>
-<form action="/teacher" method="post">
-    <input type="hidden" name="action" value="login">
+<form action="${ctx}/teacher/login" method="post">
     <input type="text" name="email" placeholder="EMAIL" value="teacher@qq.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
     <input type="submit" value="TEACHER LOGIN">
