@@ -2,10 +2,10 @@
 <%@ include file="/common/inc.jsp"%>
 <html>
 <head>
-    <title>teacher index page</title>
+    <title>教师首页 - 在线考试</title>
 </head>
 <body>
-<h1>teacher index</h1>
+<h1>教师首页</h1>
 <form action="${ctx}/teacher/login" method="post">
     <input type="text" name="email" placeholder="EMAIL" value="teacher@qq.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
