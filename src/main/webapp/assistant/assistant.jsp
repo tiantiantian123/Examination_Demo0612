@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>assistant page</title>
-    <script src="/static/js/jquery-1.12.3.min.js"></script>
+    <script src="${ctx}/static/js/jquery-1.12.3.min.js"></script>
     <script>
         $(function () {
             $('.remove').click(function () {
@@ -19,7 +19,7 @@
 <h1>assistant</h1>
 ${sessionScope.assistant.username}
 <hr>
-<form action="${ctx}/classController/create" method="post">
+<form action="${ctx}/class/create" method="post">
     <input type="text" name="name" placeholder="NAME"><br>
     <input type="date" name="startDate" placeholder="START DATE"><br>
     <input type="date" name="finishDate" placeholder="FINISH DATE"><br>
@@ -40,8 +40,8 @@ ${sessionScope.assistant.username}
             <td><a href="${ctx}/student?action=queryStudentsByClassId&id=${aClass.id}">${aClass.name}</a></td>
             <td>${aClass.startDate}</td>
             <td>${aClass.finishDate}</td>
-            <td><a href="${ctx}/classController/search/${aClass.id}">EDIT</a></td>
-            <td><a class="remove" href="${ctx}/classController/remove/${aClass.id}">REMOVE</a></td>
+            <td><a href="${ctx}/class/search/${aClass.id}">EDIT</a></td>
+            <td><a class="remove" href="${ctx}/class/remove/${aClass.id}">REMOVE</a></td>
         </tr>
     </c:forEach>
 </table>

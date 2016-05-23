@@ -1,9 +1,11 @@
 package demo.controller;
 
+import demo.dao.ClassDao;
 import demo.model.Class;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,15 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/classController")
+@RequestMapping("/class")
 public class ClassController extends BaseController {
 
     @Autowired
-    private SqlSessionFactory sqlSessionFactory;
+    private SqlSessionFactory sqlSessionFactory; // DB
+
+    @Autowired
+    private ClassDao classDao;
 
     private void list() {
-        SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        session.setAttribute("classes", sqlSession.selectList("class.queryAll"));
+        session.setAttribute("classes", classDao.list());
     }
 
     @RequestMapping("/queryAll")
@@ -36,9 +40,8 @@ public class ClassController extends BaseController {
 
     @RequestMapping("/create")
     private void create(Class aClass) throws IOException {
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);
-        sqlSession.insert("class.create", aClass);
-        response.sendRedirect("/class?action=queryAll");
+        classDao.create(aClass);
+        response.sendRedirect("/class/queryAll");
     }
 
     @RequestMapping("/search/{id}")
@@ -52,7 +55,7 @@ public class ClassController extends BaseController {
     private void update(Class aClass) throws IOException {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.update("class.update", aClass);
-        response.sendRedirect("/classController/queryAll");
+        response.sendRedirect("/class/queryAll");
     }
 
     @RequestMapping("/remove/{id}")
@@ -61,6 +64,6 @@ public class ClassController extends BaseController {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.delete("class.remove", id);
         session.setAttribute("", "");
-        response.sendRedirect("/class?action=queryAll");
+        response.sendRedirect("/class/queryAll");
     }
 }

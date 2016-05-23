@@ -42,7 +42,7 @@ public class AssistantAction extends HttpServlet {
                 if (encryptor.checkPassword(password, encryptedPassword)) {
                     assistant.setPassword(null);
                     req.getSession().setAttribute("assistant", assistant);
-                    resp.sendRedirect("/classController/queryAll");
+                    resp.sendRedirect("/class/queryAll");
                     return;
                 }
             }
