@@ -6,15 +6,15 @@ import java.util.List;
  * Created at 221
  * 16-5-23 下午2:53.
  */
-public interface GenericDao<M> {
+public interface GenericDao<T> {
 
-    void create(M model);
+    void create(T model);
 
     void remove(int id);
 
-    void update(M aClass);
+    void update(T aClass);
 
-    List<M> list();
+    List<T> list();
 
-    M search(int id);
+    T search(int id);
 }

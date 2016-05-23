@@ -13,7 +13,7 @@ import java.util.List;
  * Created at 221
  * 16-5-23 下午2:58.
  */
-public class GenericDaoImpl<M> implements GenericDao<M> {
+public class GenericDaoImpl<T> implements GenericDao<T> {
 
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
@@ -23,13 +23,15 @@ public class GenericDaoImpl<M> implements GenericDao<M> {
 
     private String namespace;
 
+    @SuppressWarnings("unchecked")
     public GenericDaoImpl() {
-        Class<M> modelClass = (Class<M>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Class<T> modelClass;
+        modelClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         namespace = modelClass.getSimpleName().toLowerCase();
     }
 
     @Override
-    public void create(M model) {
+    public void create(T model) {
 //        SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.insert(namespace + ".create", model);
     }
@@ -41,19 +43,19 @@ public class GenericDaoImpl<M> implements GenericDao<M> {
     }
 
     @Override
-    public void update(M model) {
+    public void update(T model) {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.update(namespace + ".update", model);
     }
 
     @Override
-    public List<M> list() {
+    public List<T> list() {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         return sqlSession.selectList(namespace + ".list");
     }
 
     @Override
-    public M search(int id) {
+    public T search(int id) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         return sqlSession.selectOne(namespace + ".search", id);
     }
