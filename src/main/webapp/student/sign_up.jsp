@@ -19,7 +19,7 @@
     <div class="jumbotron">
         <h1 class="text-center">学生注册</h1>
     </div>
-    <form class="well form-horizontal" action="${ctx}/studentController/create" method="post">
+    <form class="well form-horizontal" action="${ctx}/student/create" method="post">
         <div class="form-group">
             <label class="control-label col-sm-2" for="classId">班级</label>
             <div class="col-sm-4">

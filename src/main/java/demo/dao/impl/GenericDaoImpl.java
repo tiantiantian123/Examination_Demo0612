@@ -59,4 +59,9 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         return sqlSession.selectOne(namespace + ".search", id);
     }
+
+    @Override
+    public List<T> list(String statement, Object parameter) {
+        return sqlSession.selectList(statement, parameter);
+    }
 }

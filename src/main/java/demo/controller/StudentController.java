@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletContext;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/studentController")
+@RequestMapping("/student")
 public class StudentController extends BaseController {
 
     @Autowired // 自动装配
@@ -72,6 +73,12 @@ public class StudentController extends BaseController {
         }
         request.setAttribute("message", "invalid email or password!");
         return "/index";
+    }
+
+    @RequestMapping("/query/{id}")
+    private String query(@PathVariable int id) {
+        session.setAttribute("students", studentDao.list("student.query", id));
+        return "redirect:/assistant/edit_student.jsp";
     }
 
     @RequestMapping("/update")

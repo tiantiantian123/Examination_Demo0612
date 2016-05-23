@@ -11,7 +11,7 @@
 <h1>student edit profile</h1>
 ${sessionScope.student.username}
 <hr>
-<form action="/student?action=update" method="post" enctype="multipart/form-data">
+<form action="${ctx}/student/update" method="post" enctype="multipart/form-data">
     <input type="text" name="email" placeholder="EMAIL" value="${sessionScope.student.email}"><br>
     <input type="text" name="username" placeholder="USERNAME" value="${sessionScope.student.username}"><br>
     <input type="password" name="password" placeholder="PASSWORD"><br>

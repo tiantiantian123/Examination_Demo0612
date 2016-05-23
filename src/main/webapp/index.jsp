@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>首页</h1>
-<form action="${ctx}/studentController/login" method="post">
+<form action="${ctx}/student/login" method="post">
     <input type="text" name="email" placeholder="EMAIL" value="student@qq.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
     <input type="submit" value="学生登录">

@@ -9,5 +9,6 @@
 </c:if>
 <h1>学生管理</h1>
 当前教务：${sessionScope.assistant.username}
+${sessionScope.students}
 </body>
 </html>

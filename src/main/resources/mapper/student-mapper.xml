@@ -57,4 +57,7 @@
             classId    = #{classId}
         WHERE id = #{id}
     </update>
+    <select id="query" parameterType="int" resultType="student">
+        SELECT * FROM db_examination.student WHERE  classId = #{classId}
+    </select>
 </mapper>

@@ -17,4 +17,6 @@ public interface GenericDao<T> {
     List<T> list();
 
     T search(int id);
+
+    List<T> list(String statement, Object parameter);
 }
