@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../common/inc.jsp"%>
 <html>
 <head>
     <title>edit class page</title>
 </head>
 <body>
 <h1>edit class</h1>
-<form action="/class" method="post">
-    <input type="hidden" name="action" value="update">
+<form action="${ctx}/classController/update" method="post">
     <input type="hidden" name="id" value="${sessionScope.aClass.id}">
     <input type="text" name="name" placeholder="NAME" value="${sessionScope.aClass.name}"><br>
     <input type="date" name="startDate" placeholder="START DATE" value="${sessionScope.aClass.startDate}"><br>

@@ -19,8 +19,7 @@
 <h1>assistant</h1>
 ${sessionScope.assistant.username}
 <hr>
-<form action="/class" method="post">
-    <input type="hidden" name="action" value="create">
+<form action="${ctx}/classController/create" method="post">
     <input type="text" name="name" placeholder="NAME"><br>
     <input type="date" name="startDate" placeholder="START DATE"><br>
     <input type="date" name="finishDate" placeholder="FINISH DATE"><br>
@@ -38,10 +37,10 @@ ${sessionScope.assistant.username}
     <c:forEach var="aClass" items="${sessionScope.classes}" varStatus="vs">
         <tr>
             <td>${vs.count}</td>
-            <td><a href="/student?action=queryStudentsByClassId&id=${aClass.id}">${aClass.name}</a></td>
+            <td><a href="${ctx}/student?action=queryStudentsByClassId&id=${aClass.id}">${aClass.name}</a></td>
             <td>${aClass.startDate}</td>
             <td>${aClass.finishDate}</td>
-            <td><a href="/class?action=search&id=${aClass.id}">EDIT</a></td>
+            <td><a href="${ctx}/classController/search/${aClass.id}">EDIT</a></td>
             <td><a class="remove" href="${ctx}/classController/remove/${aClass.id}">REMOVE</a></td>
         </tr>
     </c:forEach>

@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
  * 19:40, 16-5-20.
  */
 public class BaseController {
-    protected HttpServletRequest request;
-    protected HttpServletResponse response;
-    protected HttpSession session;
-    protected ServletContext application;
+    HttpServletRequest request;
+    HttpServletResponse response;
+    HttpSession session;
+    ServletContext application;
 
     @ModelAttribute
     private void set(HttpServletRequest request, HttpServletResponse response) {

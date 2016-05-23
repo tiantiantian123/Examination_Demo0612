@@ -13,7 +13,7 @@
 </form>
 ${requestScope.message}
 <hr>${ctx}
-<a href="${ctx}/class?action=queryAllClasses">学生注册</a>
+<a href="${ctx}/classController/queryAllClasses">学生注册</a>
 <hr>
 <a href="${ctx}/admin/index.jsp">管理员登录</a><br>
 <a href="${ctx}/teacher/index.jsp">教师登录</a><br>
