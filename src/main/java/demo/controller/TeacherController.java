@@ -20,7 +20,7 @@ import java.util.List;
 public class TeacherController extends BaseController {
 
     @RequestMapping("/login")
-    private String login(Teacher teacher) throws IOException {
+    private String login(Teacher teacher) {
         String password = teacher.getPassword();
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
             List<Teacher> teachers = sqlSession.selectList("teacher.login", teacher.getEmail());
@@ -32,8 +32,7 @@ public class TeacherController extends BaseController {
                 if (encryptor.checkPassword(password, encryptedPassword)) {
                     teacher.setPassword(null);
                     session.setAttribute("teacher", teacher);
-                    response.sendRedirect("/teacher/teacher.jsp");
-                    return null;
+                    return "redirect:/teacher/teacher.jsp";
                 }
             }
         }

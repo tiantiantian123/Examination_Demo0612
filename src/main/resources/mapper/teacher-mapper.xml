@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teacher">
+    <insert id="create" parameterType="demo.model.Teacher" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_examination.teacher VALUES(NULL, #{email}, #{username}, #{password})
+    </insert>
     <select id="login" parameterType="String" resultType="demo.model.Teacher">
         SELECT * FROM db_examination.teacher WHERE email = #{email}
     </select>

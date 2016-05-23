@@ -19,7 +19,7 @@ import java.util.List;
 public class AssistantController extends BaseController {
 
     @RequestMapping("/login")
-    private String login(Assistant assistant) throws IOException {
+    private String login(Assistant assistant) {
         String password = assistant.getPassword();
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
             List<Assistant> assistants = sqlSession.selectList("assistant.login", assistant.getEmail());
@@ -30,8 +30,7 @@ public class AssistantController extends BaseController {
                 if (encryptor.checkPassword(password, encryptedPassword)) {
                     assistant.setPassword(null);
                     session.setAttribute("assistant", assistant);
-                    response.sendRedirect("/class/queryAll");
-                    return null;
+                    return "redirect:/class/queryAll";
                 }
             }
         }

@@ -23,7 +23,7 @@
     <input type="text" name="name" placeholder="班级名称"><br>
     <input type="date" name="startDate"><br>
     <input type="date" name="finishDate"><br>
-    <input type="submit" value="创建班级">
+    <input type="submit" value="添加班级">
 </form>
 <hr>
 <table border="1">

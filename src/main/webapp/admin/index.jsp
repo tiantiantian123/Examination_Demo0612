@@ -2,15 +2,14 @@
 <%@ include file="/common/inc.jsp"%>
 <html>
 <head>
-    <title>admin index page</title>
+    <title>管理员首页 - 在线考试</title>
 </head>
 <body>
-<h1>admin index</h1>
-<form action="/admin" method="post">
-    <input type="hidden" name="action" value="login">
+<h1>管理员首页</h1>
+<form action="${ctx}/admin/login" method="post">
     <input type="text" name="email" placeholder="EMAIL" value="admin@qq.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
-    <input type="submit" value="ADMIN LOGIN">
+    <input type="submit" value="管理员登录">
 </form>
 ${requestScope.message}
 </body>

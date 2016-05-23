@@ -44,7 +44,7 @@ public class StudentController extends BaseController {
     }
 
     @RequestMapping("/login")
-    private String login(Student student) throws IOException {
+    private String login(Student student) {
         String password = student.getPassword();
         try (SqlSession sqlSession = sqlSessionFactory.openSession(false)) {
             List<Student> students = sqlSession.selectList("student.login", student.getEmail());
@@ -66,8 +66,7 @@ public class StudentController extends BaseController {
 
                     student.setPassword(null);
                     request.getSession().setAttribute("student", student);
-                    response.sendRedirect("/student/index.jsp");
-                    return null;
+                    return "redirect:/student/index.jsp";
                 }
             }
         }
