@@ -21,38 +21,44 @@ public class ClassController extends BaseController {
     }
 
     @RequestMapping("/queryAll")
-    private void queryAll() throws IOException {
+    private String queryAll() {
         list();
-        response.sendRedirect("/assistant/assistant.jsp");
+        return "redirect:/assistant/assistant.jsp";
     }
 
     @RequestMapping("/queryAllClasses")
-    private void queryAllClasses() throws IOException {
+    private String queryAllClasses() {
         list();
-        response.sendRedirect("/student/sign_up.jsp");
+        return "redirect:/student/sign_up.jsp";
     }
 
     @RequestMapping("/create")
-    private void create(Class aClass) throws IOException {
+    private String create(Class aClass) {
         classDao.create(aClass);
-        response.sendRedirect("/class/queryAll");
+        return "redirect:/class/queryAll";
     }
 
     @RequestMapping("/search/{id}")
-    private void search(@PathVariable int id) throws IOException {
+    private String search(@PathVariable int id) {
         session.setAttribute("aClass", classDao.search(id));
-        response.sendRedirect("/assistant/edit_class.jsp");
+        return "redirect:/assistant/edit_class.jsp";
     }
 
     @RequestMapping("/update")
-    private void update(Class aClass) throws IOException {
+    private String update(Class aClass) {
         classDao.update(aClass);
-        response.sendRedirect("/class/queryAll");
+        return "redirect:/class/queryAll";
     }
 
     @RequestMapping("/remove/{id}")
-    private void remove(@PathVariable int id) throws IOException {
+    private String remove(@PathVariable int id) {
         classDao.remove(id);
-        response.sendRedirect("/class/queryAll");
+        return "redirect:/class/queryAll";
+    }
+
+    @RequestMapping("/query/{id}")
+    private String query(@PathVariable int id) {
+        System.out.println("query class id: " + id);
+        return "redirect:/assistant/edit_student.jsp";
     }
 }

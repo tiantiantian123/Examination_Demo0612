@@ -18,4 +18,7 @@
     <delete id="remove" parameterType="int">
         DELETE FROM db_examination.class WHERE id = #{id}
     </delete>
+    <select id="query" parameterType="int" resultType="class">
+
+    </select>
 </mapper>

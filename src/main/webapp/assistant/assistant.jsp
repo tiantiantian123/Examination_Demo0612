@@ -20,9 +20,12 @@
 当前教务：${sessionScope.assistant.username}
 <hr>
 <form action="${ctx}/class/create" method="post">
-    <input type="text" name="name" placeholder="班级名称"><br>
-    <input type="date" name="startDate"><br>
-    <input type="date" name="finishDate"><br>
+    <label for="startDate">班级名称</label>
+    <input type="text" name="name"><br>
+    <label for="startDate">开班日期</label>
+    <input id="startDate" type="date" name="startDate"><br>
+    <label for="finishDate">结业日期</label>
+    <input id="finishDate" type="date" name="finishDate"><br>
     <input type="submit" value="添加班级">
 </form>
 <hr>
@@ -37,7 +40,7 @@
     <c:forEach var="aClass" items="${sessionScope.classes}" varStatus="vs">
         <tr>
             <td>${vs.count}</td>
-            <td><a href="${ctx}/student?action=queryStudentsByClassId&id=${aClass.id}">${aClass.name}</a></td>
+            <td><a href="${ctx}/class/query/${aClass.id}">${aClass.name}</a></td>
             <td>${aClass.startDate}</td>
             <td>${aClass.finishDate}</td>
             <td><a href="${ctx}/class/search/${aClass.id}">编辑</a></td>
