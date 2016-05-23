@@ -2,7 +2,7 @@
 <%@ include file="/common/inc.jsp"%>
 <html>
 <head>
-    <title>assistant page</title>
+    <title>教务管理 - 在线考试</title>
     <script src="${ctx}/static/js/jquery-1.12.3.min.js"></script>
     <script>
         $(function () {
@@ -16,23 +16,23 @@
 <c:if test="${sessionScope.assistant eq null}">
     <c:redirect url="/assistant/index.jsp"/>
 </c:if>
-<h1>assistant</h1>
-${sessionScope.assistant.username}
+<h1>教务管理</h1>
+当前教务：${sessionScope.assistant.username}
 <hr>
 <form action="${ctx}/class/create" method="post">
-    <input type="text" name="name" placeholder="NAME"><br>
-    <input type="date" name="startDate" placeholder="START DATE"><br>
-    <input type="date" name="finishDate" placeholder="FINISH DATE"><br>
-    <input type="submit" value="CREATE">
+    <input type="text" name="name" placeholder="班级名称"><br>
+    <input type="date" name="startDate"><br>
+    <input type="date" name="finishDate"><br>
+    <input type="submit" value="创建班级">
 </form>
 <hr>
 <table border="1">
     <tr>
-        <th>ID</th>
-        <th>NAME</th>
-        <th>START DATE</th>
-        <th>FINISH DATE</th>
-        <th colspan="2">OPERATION</th>
+        <th>序号</th>
+        <th>班级名称</th>
+        <th>开班日期</th>
+        <th>结业日期</th>
+        <th colspan="2">操作</th>
     </tr>
     <c:forEach var="aClass" items="${sessionScope.classes}" varStatus="vs">
         <tr>
@@ -40,8 +40,8 @@ ${sessionScope.assistant.username}
             <td><a href="${ctx}/student?action=queryStudentsByClassId&id=${aClass.id}">${aClass.name}</a></td>
             <td>${aClass.startDate}</td>
             <td>${aClass.finishDate}</td>
-            <td><a href="${ctx}/class/search/${aClass.id}">EDIT</a></td>
-            <td><a class="remove" href="${ctx}/class/remove/${aClass.id}">REMOVE</a></td>
+            <td><a href="${ctx}/class/search/${aClass.id}">编辑</a></td>
+            <td><a class="remove" href="${ctx}/class/remove/${aClass.id}">删除</a></td>
         </tr>
     </c:forEach>
 </table>

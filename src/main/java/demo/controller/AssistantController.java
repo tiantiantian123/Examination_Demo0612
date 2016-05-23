@@ -7,7 +7,6 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,11 +19,10 @@ import java.util.List;
 public class AssistantController extends BaseController {
 
     @RequestMapping("/login")
-    private void login(Assistant assistant) throws IOException, ServletException {
+    private String login(Assistant assistant) throws IOException {
         String password = assistant.getPassword();
         try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
             List<Assistant> assistants = sqlSession.selectList("assistant.login", assistant.getEmail());
-            System.out.println(assistants.get(0));
             if (assistants.size() == 1) {
                 assistant = assistants.get(0);
                 String encryptedPassword = assistant.getPassword();
@@ -33,11 +31,11 @@ public class AssistantController extends BaseController {
                     assistant.setPassword(null);
                     session.setAttribute("assistant", assistant);
                     response.sendRedirect("/class/queryAll");
-                    return;
+                    return null;
                 }
             }
         }
-        request.setAttribute("message", "invalid email or password!");
-        request.getRequestDispatcher("/assistant/index.jsp").forward(request, response);
+        request.setAttribute("message", "用户名或密码错误");
+        return "/assistant/index";
     }
 }

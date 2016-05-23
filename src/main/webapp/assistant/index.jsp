@@ -9,7 +9,7 @@
 <form action="${ctx}/assistant/login" method="post">
     <input type="text" name="email" placeholder="EMAIL" value="assistant@qq.com"><br>
     <input type="password" name="password" placeholder="PASSWORD" value="123"><br>
-    <input type="submit" value="ASSISTANT LOGIN">
+    <input type="submit" value="教务登录">
 </form>
 ${requestScope.message}
 </body>

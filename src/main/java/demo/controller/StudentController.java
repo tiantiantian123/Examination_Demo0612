@@ -13,9 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +44,7 @@ public class StudentController extends BaseController {
     }
 
     @RequestMapping("/login")
-    private void login(Student student) throws IOException, ServletException {
+    private String login(Student student) throws IOException {
         String password = student.getPassword();
         try (SqlSession sqlSession = sqlSessionFactory.openSession(false)) {
             List<Student> students = sqlSession.selectList("student.login", student.getEmail());
@@ -70,18 +67,18 @@ public class StudentController extends BaseController {
                     student.setPassword(null);
                     request.getSession().setAttribute("student", student);
                     response.sendRedirect("/student/index.jsp");
-                    return;
+                    return null;
                 }
             }
         }
         request.setAttribute("message", "invalid email or password!");
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        return "/index";
     }
 
     @RequestMapping("/update")
     private void update(Student student) {
         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-        ServletContext servletContext  = request.getServletContext(); // // TODO: 16-5-20 check
+        ServletContext servletContext = request.getServletContext(); // // TODO: 16-5-20 check
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
         System.out.println("repository: " + repository.getAbsolutePath());
         diskFileItemFactory.setRepository(repository);
