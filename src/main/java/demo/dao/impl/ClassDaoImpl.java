@@ -28,7 +28,24 @@ public class ClassDaoImpl implements ClassDao {
     @Override
     public List<Class> list() {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        List<Class> classes = sqlSession.selectList("class.queryAll");
-        return classes;
+        return sqlSession.selectList("class.list");
+    }
+
+    @Override
+    public Class search(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        return sqlSession.selectOne("class.search", id);
+    }
+
+    @Override
+    public void update(Class aClass) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        sqlSession.update("class.update", aClass);
+    }
+
+    @Override
+    public void remove(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        sqlSession.delete("class.remove", id);
     }
 }

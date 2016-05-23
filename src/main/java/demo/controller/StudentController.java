@@ -1,5 +1,6 @@
 package demo.controller;
 
+import demo.dao.StudentDao;
 import demo.model.Student;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -33,13 +34,15 @@ public class StudentController extends BaseController {
     @Autowired // 自动装配
     private SqlSessionFactory sqlSessionFactory;
 
+    @Autowired
+    private StudentDao studentDao;
+
     @RequestMapping("/create")
     private void create(Student student) throws IOException {
         student.setLastIp(request.getRemoteAddr());
         StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
         student.setPassword(encryptor.encryptPassword(student.getPassword()));
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);
-        sqlSession.insert("student.create", student);
+        studentDao.create(student);
         response.sendRedirect("/index.jsp");
     }
 

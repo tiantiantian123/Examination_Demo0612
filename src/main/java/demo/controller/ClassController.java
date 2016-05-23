@@ -2,10 +2,7 @@ package demo.controller;
 
 import demo.dao.ClassDao;
 import demo.model.Class;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +12,6 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/class")
 public class ClassController extends BaseController {
-
-    @Autowired
-    private SqlSessionFactory sqlSessionFactory; // DB
 
     @Autowired
     private ClassDao classDao;
@@ -46,24 +40,19 @@ public class ClassController extends BaseController {
 
     @RequestMapping("/search/{id}")
     private void search(@PathVariable int id) throws IOException {
-        SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        session.setAttribute("aClass", sqlSession.selectOne("class.search", id));
+        session.setAttribute("aClass", classDao.search(id));
         response.sendRedirect("/assistant/edit_class.jsp");
     }
 
     @RequestMapping("/update")
     private void update(Class aClass) throws IOException {
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);
-        sqlSession.update("class.update", aClass);
+        classDao.update(aClass);
         response.sendRedirect("/class/queryAll");
     }
 
     @RequestMapping("/remove/{id}")
     private void remove(@PathVariable int id) throws IOException {
-        System.out.println("id: " + id);
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);
-        sqlSession.delete("class.remove", id);
-        session.setAttribute("", "");
+        classDao.remove(id);
         response.sendRedirect("/class/queryAll");
     }
 }
