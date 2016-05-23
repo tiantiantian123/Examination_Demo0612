@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="assistant">
-    <insert id="create" parameterType="demo.model.Assistant" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="assistant" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.assistant VALUES(NULL, #{email}, #{username}, #{password})
     </insert>
-    <select id="login" parameterType="String" resultType="demo.model.Assistant">
+    <select id="login" parameterType="String" resultType="assistant">
         SELECT * FROM db_examination.assistant WHERE email = #{email}
     </select>
 </mapper>

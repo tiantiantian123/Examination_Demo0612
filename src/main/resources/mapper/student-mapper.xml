@@ -25,12 +25,12 @@
             #{classId}
         )
     </insert>
-    <select id="login" parameterType="String" resultType="demo.model.Student">
+    <select id="login" parameterType="String" resultType="student">
         SELECT *
         FROM db_examination.student
         WHERE email = #{email}
     </select>
-    <update id="last" parameterType="demo.model.Student">
+    <update id="last" parameterType="student">
         UPDATE db_examination.student
         SET lastIp = #{lastIp}, lastLogin = #{lastLogin}
         WHERE id = #{id}
