@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * 16-5-23 下午1:25.
  */
 @Repository
-public class StudentDaoImpl extends GenericDaoImpl<Student> implements StudentDao {
+public class StudentDaoImpl extends GenericDaoImpl<Student, Integer> implements StudentDao {
 }

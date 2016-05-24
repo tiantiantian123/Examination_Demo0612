@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * 16-5-24 上午9:06.
  */
 @Repository
-public class AdminDaoImpl extends GenericDaoImpl<Admin> implements AdminDao {
+public class AdminDaoImpl extends GenericDaoImpl<Admin, Integer> implements AdminDao {
 }

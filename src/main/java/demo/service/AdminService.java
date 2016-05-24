@@ -6,5 +6,6 @@ import demo.model.Admin;
  * Created at 221
  * 16-5-24 上午10:53.
  */
-public interface AdminService extends GenericService<Admin> {
+public interface AdminService extends GenericService<Admin, Integer> {
+    Admin login(Admin admin);
 }

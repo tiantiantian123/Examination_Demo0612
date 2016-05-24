@@ -7,5 +7,5 @@ import demo.model.Student;
  * 16-5-23 下午1:24.
  */
 // Student CRUD
-public interface StudentDao extends GenericDao<Student>{
+public interface StudentDao extends GenericDao<Student, Integer>{
 }

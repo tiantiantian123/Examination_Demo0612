@@ -1,13 +1,10 @@
 package demo.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * Created by Administrator
  * 下午1:42 16-5-17
  */
-public class Class implements Serializable {
+public class Class extends BaseModel {
     private Integer id;
     private String name;
     private String startDate;

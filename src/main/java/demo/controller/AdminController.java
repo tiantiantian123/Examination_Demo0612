@@ -28,24 +28,18 @@ public class AdminController extends BaseController {
     private TeacherService teacherService;
 
     @Autowired
-    private AssistantService assistantDao;
+    private AssistantService assistantService;
 
     @RequestMapping("/login")
     private String login(Admin admin) {
-        String password = admin.getPassword();
-        List<Admin> admins = adminService.list("admin.login", admin.getEmail());
-        if (admins.size() == 1) {
-            admin = admins.get(0);
-            String encryptedPassword = admin.getPassword();
-            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-            if (encryptor.checkPassword(password, encryptedPassword)) {
-                admin.setPassword(null);
-                session.setAttribute("admin", admin);
-                return "redirect:/admin/admin.jsp";
-            }
+        admin = adminService.login(admin);
+        if (admin != null) {
+            session.setAttribute("admin", admin);
+            return "redirect:/admin/admin.jsp";
+        } else {
+            request.setAttribute("message", "invalid email or password!");
+            return "/admin/index";
         }
-        request.setAttribute("message", "invalid email or password!");
-        return "/admin/index";
     }
 
     @RequestMapping("/createTeacher")
@@ -56,7 +50,7 @@ public class AdminController extends BaseController {
 
     @RequestMapping("/createAssistant")
     private String createAssistant(Assistant assistant) {
-        assistantDao.create(assistant);
+        assistantService.create(assistant);
         return "redirect:/admin/admin.jsp";
     }
 }

@@ -3,17 +3,18 @@ package demo.service.impl;
 import demo.dao.GenericDao;
 import demo.service.GenericService;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created at 221
  * 16-5-24 上午10:20.
  */
-public abstract class GenericServiceImpl<T> implements GenericService<T> {
+public abstract class GenericServiceImpl<T extends Serializable, ID extends Number> implements GenericService<T, ID> {
 
-    GenericDao<T> genericDao;
+    GenericDao<T, ID> genericDao;
 
-    abstract void setGenericDao(GenericDao<T> genericDao);
+    abstract void setGenericDao(GenericDao<T, ID> genericDao);
 
     @Override
     public void create(T model) {
@@ -21,7 +22,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(ID id) {
         genericDao.remove(id);
     }
 
@@ -36,7 +37,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
     }
 
     @Override
-    public T search(int id) {
+    public T search(ID id) {
         return genericDao.search(id);
     }
 

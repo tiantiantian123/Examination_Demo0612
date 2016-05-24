@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * 16-5-23 下午6:16.
  */
 @Repository
-public class AssistantImpl extends GenericDaoImpl<Assistant> implements AssistantDao {
+public class AssistantImpl extends GenericDaoImpl<Assistant, Integer> implements AssistantDao {
 }

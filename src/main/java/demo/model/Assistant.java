@@ -1,11 +1,9 @@
 package demo.model;
 
-import java.io.Serializable;
-
 /**
  * Created by Administrator on 16-5-19.
  */
-public class Assistant implements Serializable {
+public class Assistant extends BaseModel {
     private Integer id;
     private String email;
     private String username;

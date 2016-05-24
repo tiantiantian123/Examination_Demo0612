@@ -1,12 +1,10 @@
 package demo.model;
 
-import java.io.Serializable;
-
 /**
  * Created by non-perfectionist
  * 9:41 2016/5/16.
  */
-public class Student implements Serializable {
+public class Student extends BaseModel {
     private Integer id;
     private String email;
     private String username;
