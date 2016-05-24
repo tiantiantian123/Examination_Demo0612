@@ -1,19 +1,16 @@
 package demo.controller;
 
-import demo.dao.AdminDao;
-import demo.dao.AssistantDao;
-import demo.dao.TeacherDao;
 import demo.model.Admin;
 import demo.model.Assistant;
 import demo.model.Teacher;
-import demo.util.MyBatisSqlSession;
-import org.apache.ibatis.session.SqlSession;
+import demo.service.AdminService;
+import demo.service.AssistantService;
+import demo.service.TeacherService;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.persistence.PreUpdate;
 import java.util.List;
 
 /**
@@ -25,18 +22,18 @@ import java.util.List;
 public class AdminController extends BaseController {
 
     @Autowired
-    private AdminDao adminDao;
+    private AdminService adminService;
 
     @Autowired
-    private TeacherDao teacherDao;
+    private TeacherService teacherService;
 
     @Autowired
-    private AssistantDao assistantDao;
+    private AssistantService assistantDao;
 
     @RequestMapping("/login")
     private String login(Admin admin) {
         String password = admin.getPassword();
-        List<Admin> admins = adminDao.list("admin.login", admin.getEmail());
+        List<Admin> admins = adminService.list("admin.login", admin.getEmail());
         if (admins.size() == 1) {
             admin = admins.get(0);
             String encryptedPassword = admin.getPassword();
@@ -53,7 +50,7 @@ public class AdminController extends BaseController {
 
     @RequestMapping("/createTeacher")
     private String createTeacher(Teacher teacher) {
-        teacherDao.create(teacher);
+        teacherService.create(teacher);
         return "redirect:/admin/admin.jsp";
     }
 

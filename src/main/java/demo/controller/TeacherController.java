@@ -1,16 +1,12 @@
 package demo.controller;
 
-import demo.dao.TeacherDao;
 import demo.model.Teacher;
-import demo.util.MyBatisSqlSession;
-import org.apache.ibatis.session.SqlSession;
+import demo.service.TeacherService;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -22,12 +18,12 @@ import java.util.List;
 public class TeacherController extends BaseController {
 
     @Autowired
-    private TeacherDao teacherDao;
+    private TeacherService teacherService;
 
     @RequestMapping("/login")
     private String login(Teacher teacher) {
         String password = teacher.getPassword();
-        List<Teacher> teachers = teacherDao.list("teacher.login", teacher.getEmail());
+        List<Teacher> teachers = teacherService.list("teacher.login", teacher.getEmail());
         System.out.println(teachers.get(0));
         if (teachers.size() == 1) {
             teacher = teachers.get(0);

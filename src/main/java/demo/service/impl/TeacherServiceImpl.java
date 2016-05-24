@@ -1,8 +1,8 @@
 package demo.service.impl;
 
 import demo.dao.GenericDao;
-import demo.model.Class;
-import demo.service.ClassService;
+import demo.model.Teacher;
+import demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
  * 16-5-24 上午10:54.
  */
 @Service
-public class ClassServiceImpl extends GenericServiceImpl<Class> implements ClassService {
+public class TeacherServiceImpl extends GenericServiceImpl<Teacher> implements TeacherService {
 
     @Override
     @Autowired
-    @Qualifier("classDaoImpl")
-    void setGenericDao(GenericDao<Class> genericDao) {
+    @Qualifier("adminDaoImpl")
+    void setGenericDao(GenericDao<Teacher> genericDao) {
         super.genericDao = genericDao;
     }
 }

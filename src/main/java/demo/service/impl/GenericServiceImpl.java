@@ -13,7 +13,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
     GenericDao<T> genericDao;
 
-    abstract void setGenericDao(GenericDao genericDao);
+    abstract void setGenericDao(GenericDao<T> genericDao);
 
     @Override
     public void create(T model) {

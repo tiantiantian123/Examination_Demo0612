@@ -22,7 +22,7 @@ public class StudentServiceImpl extends GenericServiceImpl<Student> implements S
     @Override
     @Autowired
     @Qualifier("studentDaoImpl")
-    public void setGenericDao(GenericDao genericDao) {
+    public void setGenericDao(GenericDao<Student> genericDao) {
         super.genericDao = genericDao;
     }
 

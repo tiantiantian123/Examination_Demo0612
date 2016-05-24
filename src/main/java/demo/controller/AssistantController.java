@@ -2,6 +2,7 @@ package demo.controller;
 
 import demo.dao.AssistantDao;
 import demo.model.Assistant;
+import demo.service.AssistantService;
 import demo.util.MyBatisSqlSession;
 import org.apache.ibatis.session.SqlSession;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -21,12 +22,12 @@ import java.util.List;
 public class AssistantController extends BaseController {
 
     @Autowired
-    private AssistantDao assistantDao;
+    private AssistantService assistantService;
 
     @RequestMapping("/login")
     private String login(Assistant assistant) {
         String password = assistant.getPassword();
-        List<Assistant> assistants = assistantDao.list("assistant.login", assistant.getEmail());
+        List<Assistant> assistants = assistantService.list("assistant.login", assistant.getEmail());
         if (assistants.size() == 1) {
             assistant = assistants.get(0);
             String encryptedPassword = assistant.getPassword();
