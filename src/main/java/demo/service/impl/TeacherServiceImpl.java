@@ -20,7 +20,7 @@ public class TeacherServiceImpl extends GenericServiceImpl<Teacher, Integer> imp
 
     @Override
     @Autowired
-    @Qualifier("adminDaoImpl")
+    @Qualifier("teacherDaoImpl")
     void setGenericDao(GenericDao<Teacher, Integer> genericDao) {
         super.genericDao = genericDao;
     }
@@ -31,6 +31,7 @@ public class TeacherServiceImpl extends GenericServiceImpl<Teacher, Integer> imp
         TeacherDao teacherDao = (TeacherDao) super.genericDao;
         List<Teacher> teachers = teacherDao.list("teacher.login", teacher.getEmail());
         if (teachers.size() == 1) {
+            teacher = teachers.get(0);
             String encryptedPassword = teacher.getPassword();
             StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
             if (encryptor.checkPassword(plainPassword, encryptedPassword)) {

@@ -1,6 +1,7 @@
 package demo.dao;
 
 import demo.model.Assistant;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created at 221

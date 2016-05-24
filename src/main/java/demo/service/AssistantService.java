@@ -7,4 +7,5 @@ import demo.model.Assistant;
  * 16-5-24 上午10:53.
  */
 public interface AssistantService extends GenericService<Assistant, Integer> {
+    Assistant login(Assistant assistant);
 }

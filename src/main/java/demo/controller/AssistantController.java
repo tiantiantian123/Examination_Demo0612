@@ -26,19 +26,13 @@ public class AssistantController extends BaseController {
 
     @RequestMapping("/login")
     private String login(Assistant assistant) {
-        String password = assistant.getPassword();
-        List<Assistant> assistants = assistantService.list("assistant.login", assistant.getEmail());
-        if (assistants.size() == 1) {
-            assistant = assistants.get(0);
-            String encryptedPassword = assistant.getPassword();
-            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-            if (encryptor.checkPassword(password, encryptedPassword)) {
-                assistant.setPassword(null);
-                session.setAttribute("assistant", assistant);
-                return "redirect:/class/queryAll";
-            }
+        assistant = assistantService.login(assistant);
+        if (assistant != null) {
+            session.setAttribute("assistant", assistant);
+            return "redirect:/class/queryAll";
+        } else {
+            request.setAttribute("message", "用户名或密码错误");
+            return "/assistant/index";
         }
-        request.setAttribute("message", "用户名或密码错误");
-        return "/assistant/index";
     }
 }

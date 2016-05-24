@@ -27,14 +27,14 @@ public class AdminServiceImpl extends GenericServiceImpl<Admin, Integer> impleme
 
     @Override
     public Admin login(Admin admin) {
-        String password = admin.getPassword();
+        String plainPassword = admin.getPassword();
         AdminDao adminDao = (AdminDao) super.genericDao;
         List<Admin> admins = adminDao.list("admin.login", admin.getEmail());
         if (admins.size() == 1) {
             admin = admins.get(0);
             String encryptedPassword = admin.getPassword();
             StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-            if (encryptor.checkPassword(password, encryptedPassword)) {
+            if (encryptor.checkPassword(plainPassword, encryptedPassword)) {
                 admin.setPassword(null);
                 return admin;
             }
