@@ -1,9 +1,11 @@
 package demo.controller;
 
+import demo.dao.TeacherDao;
 import demo.model.Teacher;
 import demo.util.MyBatisSqlSession;
 import org.apache.ibatis.session.SqlSession;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,21 +21,22 @@ import java.util.List;
 @RequestMapping("/teacher")
 public class TeacherController extends BaseController {
 
+    @Autowired
+    private TeacherDao teacherDao;
+
     @RequestMapping("/login")
     private String login(Teacher teacher) {
         String password = teacher.getPassword();
-        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
-            List<Teacher> teachers = sqlSession.selectList("teacher.login", teacher.getEmail());
-            System.out.println(teachers.get(0));
-            if (teachers.size() == 1) {
-                teacher = teachers.get(0);
-                String encryptedPassword = teacher.getPassword();
-                StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-                if (encryptor.checkPassword(password, encryptedPassword)) {
-                    teacher.setPassword(null);
-                    session.setAttribute("teacher", teacher);
-                    return "redirect:/teacher/teacher.jsp";
-                }
+        List<Teacher> teachers = teacherDao.list("teacher.login", teacher.getEmail());
+        System.out.println(teachers.get(0));
+        if (teachers.size() == 1) {
+            teacher = teachers.get(0);
+            String encryptedPassword = teacher.getPassword();
+            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+            if (encryptor.checkPassword(password, encryptedPassword)) {
+                teacher.setPassword(null);
+                session.setAttribute("teacher", teacher);
+                return "redirect:/teacher/teacher.jsp";
             }
         }
         request.setAttribute("message", "用户名或密码错误");

@@ -1,5 +1,6 @@
 package demo.controller;
 
+import demo.dao.AdminDao;
 import demo.dao.AssistantDao;
 import demo.dao.TeacherDao;
 import demo.model.Admin;
@@ -24,6 +25,9 @@ import java.util.List;
 public class AdminController extends BaseController {
 
     @Autowired
+    private AdminDao adminDao;
+
+    @Autowired
     private TeacherDao teacherDao;
 
     @Autowired
@@ -32,18 +36,15 @@ public class AdminController extends BaseController {
     @RequestMapping("/login")
     private String login(Admin admin) {
         String password = admin.getPassword();
-
-        try (SqlSession sqlSession = MyBatisSqlSession.getSqlSession(false)) {
-            List<Admin> admins = sqlSession.selectList("admin.login", admin.getEmail());
-            if (admins.size() == 1) {
-                admin = admins.get(0);
-                String encryptedPassword = admin.getPassword();
-                StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-                if (encryptor.checkPassword(password, encryptedPassword)) {
-                    admin.setPassword(null);
-                    session.setAttribute("admin", admin);
-                    return "redirect:/admin/admin.jsp";
-                }
+        List<Admin> admins = adminDao.list("admin.login", admin.getEmail());
+        if (admins.size() == 1) {
+            admin = admins.get(0);
+            String encryptedPassword = admin.getPassword();
+            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+            if (encryptor.checkPassword(password, encryptedPassword)) {
+                admin.setPassword(null);
+                session.setAttribute("admin", admin);
+                return "redirect:/admin/admin.jsp";
             }
         }
         request.setAttribute("message", "invalid email or password!");

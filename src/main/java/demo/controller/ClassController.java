@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
-
 @Controller
 @RequestMapping("/class")
 public class ClassController extends BaseController {
@@ -54,11 +52,5 @@ public class ClassController extends BaseController {
     private String remove(@PathVariable int id) {
         classDao.remove(id);
         return "redirect:/class/queryAll";
-    }
-
-    @RequestMapping("/query/{id}")
-    private String query(@PathVariable int id) {
-        System.out.println("query class id: " + id);
-        return "redirect:/assistant/edit_student.jsp";
     }
 }
