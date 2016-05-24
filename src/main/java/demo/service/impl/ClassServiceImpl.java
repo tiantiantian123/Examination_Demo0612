@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
  * 16-5-24 上午10:54.
  */
 @Service
-public class ClassServiceImpl extends GenericServiceImpl<Class> implements ClassService {
+public class ClassServiceImpl extends GenericServiceImpl<Class, Integer> implements ClassService {
 
     @Override
     @Autowired
     @Qualifier("classDaoImpl")
-    void setGenericDao(GenericDao<Class> genericDao) {
+    void setGenericDao(GenericDao<Class, Integer> genericDao) {
         super.genericDao = genericDao;
     }
 }

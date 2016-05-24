@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
  * 16-5-24 上午10:54.
  */
 @Service
-public class AssistantServiceImpl extends GenericServiceImpl<Assistant> implements AssistantService {
+public class AssistantServiceImpl extends GenericServiceImpl<Assistant, Integer> implements AssistantService {
 
     @Override
     @Autowired
     @Qualifier("adminDaoImpl")
-    void setGenericDao(GenericDao<Assistant> genericDao) {
+    void setGenericDao(GenericDao<Assistant, Integer> genericDao) {
         super.genericDao = genericDao;
     }
 }

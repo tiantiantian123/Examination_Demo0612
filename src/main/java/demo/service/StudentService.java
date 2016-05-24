@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created at 221
  * 16-5-24 上午10:25.
  */
-public interface StudentService extends GenericService<Student> {
+public interface StudentService extends GenericService<Student, Integer> {
 
     Student login(HttpServletRequest request, Student student);
 }

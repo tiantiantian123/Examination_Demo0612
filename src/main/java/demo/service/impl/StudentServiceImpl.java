@@ -17,12 +17,12 @@ import java.util.List;
  * 16-5-24 上午10:26.
  */
 @Service
-public class StudentServiceImpl extends GenericServiceImpl<Student> implements StudentService {
+public class StudentServiceImpl extends GenericServiceImpl<Student, Integer> implements StudentService {
 
     @Override
     @Autowired
     @Qualifier("studentDaoImpl")
-    public void setGenericDao(GenericDao<Student> genericDao) {
+    public void setGenericDao(GenericDao<Student, Integer> genericDao) {
         super.genericDao = genericDao;
     }
 
