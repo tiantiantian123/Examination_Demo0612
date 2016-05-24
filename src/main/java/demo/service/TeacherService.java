@@ -7,4 +7,5 @@ import demo.model.Teacher;
  * 16-5-24 上午10:53.
  */
 public interface TeacherService extends GenericService<Teacher, Integer> {
+    Teacher login(Teacher teacher);
 }

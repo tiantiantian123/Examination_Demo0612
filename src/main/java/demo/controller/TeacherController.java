@@ -22,20 +22,13 @@ public class TeacherController extends BaseController {
 
     @RequestMapping("/login")
     private String login(Teacher teacher) {
-        String password = teacher.getPassword();
-        List<Teacher> teachers = teacherService.list("teacher.login", teacher.getEmail());
-        System.out.println(teachers.get(0));
-        if (teachers.size() == 1) {
-            teacher = teachers.get(0);
-            String encryptedPassword = teacher.getPassword();
-            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-            if (encryptor.checkPassword(password, encryptedPassword)) {
-                teacher.setPassword(null);
-                session.setAttribute("teacher", teacher);
-                return "redirect:/teacher/teacher.jsp";
-            }
+        teacher = teacherService.login(teacher);
+        if (teacher != null) {
+            session.setAttribute("teacher", teacher);
+            return "redirect:/teacher/teacher.jsp";
+        } else {
+            request.setAttribute("message", "用户名或密码错误");
+            return "/teacher/index";
         }
-        request.setAttribute("message", "用户名或密码错误");
-        return "/teacher/index";
     }
 }
