@@ -1,12 +1,12 @@
-package demo.dao;
+package demo.service;
 
 import java.util.List;
 
 /**
  * Created at 221
- * 16-5-23 下午2:53.
+ * 16-5-24 上午10:19.
  */
-public interface GenericDao<T> {
+public interface GenericService<T> {
 
     void create(T model);
 

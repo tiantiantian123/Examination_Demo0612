@@ -45,7 +45,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="username">姓名</label>
             <div class="col-sm-4">
-                <input class="form-control" id="username" type="text" name="username">
+                <input class="form-control" id="username" type="text" name="username" value="test">
             </div>
         </div>
         <div class="form-group">
@@ -58,55 +58,55 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="dob">出生日期</label>
             <div class="col-sm-4">
-                <input class="form-control" id="dob" type="date" name="dob">
+                <input class="form-control" id="dob" type="date" name="dob" value="1980-1-1">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="tel">电话</label>
             <div class="col-sm-4">
-                <input class="form-control" id="tel" type="text" name="tel">
+                <input class="form-control" id="tel" type="text" name="tel" value="test">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="education">学历</label>
             <div class="col-sm-4">
-                <input class="form-control" id="education" type="text" name="education">
+                <input class="form-control" id="education" type="text" name="education" value="test">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="major">专业</label>
             <div class="col-sm-4">
-                <input class="form-control" id="major" type="text" name="major">
+                <input class="form-control" id="major" type="text" name="major" value="teste">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="academy">毕业院校</label>
             <div class="col-sm-4">
-                <input class="form-control" id="academy" type="text" name="academy">
+                <input class="form-control" id="academy" type="text" name="academy" value="test">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="graduation">毕业日期</label>
             <div class="col-sm-4">
-                <input class="form-control" id="graduation" type="date" name="graduation">
+                <input class="form-control" id="graduation" type="date" name="graduation" value="2000-1-1">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="training">培训经历</label>
             <div class="col-sm-4">
-                <textarea class="form-control" id="training" name="training"></textarea>
+                <textarea class="form-control" id="training" name="training">test...</textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="experience">工作经验</label>
             <div class="col-sm-4">
-                <textarea class="form-control" id="experience" name="experience"></textarea>
+                <textarea class="form-control" id="experience" name="experience">test...</textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="remark">备注</label>
             <div class="col-sm-4">
-                <textarea class="form-control" id="remark" name="remark"></textarea>
+                <textarea class="form-control" id="remark" name="remark">test...</textarea>
             </div>
         </div>
         <div class="form-group">

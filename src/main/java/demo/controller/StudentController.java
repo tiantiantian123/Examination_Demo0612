@@ -2,6 +2,7 @@ package demo.controller;
 
 import demo.dao.StudentDao;
 import demo.model.Student;
+import demo.service.StudentService;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -29,50 +30,32 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController extends BaseController {
 
-    @Autowired // 自动装配
-    private SqlSessionFactory sqlSessionFactory;
-
     @Autowired
     private StudentDao studentDao;
+
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping("/create")
     private void create(Student student) throws IOException {
         student.setLastIp(request.getRemoteAddr());
         StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
         student.setPassword(encryptor.encryptPassword(student.getPassword()));
-        studentDao.create(student);
+//        studentDao.create(student);
+        studentService.create(student);
         response.sendRedirect("/index.jsp");
     }
 
     @RequestMapping("/login")
     private String login(Student student) {
-        String password = student.getPassword();
-        try (SqlSession sqlSession = sqlSessionFactory.openSession(false)) {
-            List<Student> students = sqlSession.selectList("student.login", student.getEmail());
-            if (students.size() == 1) {
-                student = students.get(0);
-                String encryptedPassword = student.getPassword();
-                StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-                if (encryptor.checkPassword(password, encryptedPassword)) {
-
-                    String lastIp = request.getRemoteAddr();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String lastLogin = simpleDateFormat.format(new Date());
-
-                    // update student last_ip, last_login time
-                    student.setLastIp(lastIp);
-                    student.setLastLogin(lastLogin);
-                    sqlSession.update("student.last", student);
-                    sqlSession.commit();
-
-                    student.setPassword(null);
-                    request.getSession().setAttribute("student", student);
-                    return "redirect:/student/index.jsp";
-                }
-            }
+        student = studentService.login(request, student);
+        if (student != null) {
+            request.getSession().setAttribute("student", student);
+            return "redirect:/student/index.jsp";
+        } else {
+            request.setAttribute("message", "invalid email or password!");
+            return "/index";
         }
-        request.setAttribute("message", "invalid email or password!");
-        return "/index";
     }
 
     @RequestMapping("/query/{id}")
