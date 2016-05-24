@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
-    GenericDao genericDao;
+    GenericDao<T> genericDao;
 
     abstract void setGenericDao(GenericDao genericDao);
 
@@ -38,7 +38,6 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
     @Override
     public T search(int id) {
         return genericDao.search(id);
-        return null;
     }
 
     @Override
