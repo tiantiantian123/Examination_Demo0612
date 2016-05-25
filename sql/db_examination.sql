@@ -123,3 +123,15 @@ FROM db_examination.student s INNER JOIN db_examination.class c ON s.classId = c
 SHOW TABLE STATUS FROM db_examination;
 
 SHOW FULL COLUMNS FROM db_examination.student;
+
+
+CREATE TABLE db_examination.user (
+  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255),
+  password VARCHAR(255)
+);
+
+DESC db_examination.user;
+
+SELECT *
+FROM db_examination.user;
