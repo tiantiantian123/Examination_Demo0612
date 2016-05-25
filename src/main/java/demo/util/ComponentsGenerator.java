@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -22,10 +23,15 @@ public class ComponentsGenerator {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         FreeMarkerConfig freeMarkerConfig = (FreeMarkerConfig) applicationContext.getBean("freemarkerConfig");
 
-        Template template = freeMarkerConfig.getConfiguration().getTemplate("hello.ftl"); // 1. template
-        Map<String, String> map = new HashMap<>(); // 2. Java Object
-        map.put("name", "张三");
-        Writer writer = new FileWriter("d:/hello.html"); // 3. Output
+        Template template = freeMarkerConfig.getConfiguration().getTemplate("type/model.ftl"); // 1. template
+        Map<String, Object> map = new HashMap<>(); // 2. Java Object
+        map.put("model", "Admin"); // Admin
+        Map<String, String> properties = new LinkedHashMap<>();
+        properties.put("username", "String"); // String username, String password, int age
+        properties.put("password", "String");
+        properties.put("age", "int");
+        map.put("properties", properties);
+        Writer writer = new FileWriter("d:/Admin.java"); // 3. Output
 
         template.process(map, writer); // Freemarker Processing...
     }
