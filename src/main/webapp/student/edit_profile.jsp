@@ -11,13 +11,13 @@
 <h1>student edit profile</h1>
 ${sessionScope.student.username}
 <hr>
-<form action="${ctx}/student/update" method="post" enctype="multipart/form-data">
+<form action="${ctx}/student/modify" method="post" enctype="multipart/form-data">
     <input type="text" name="email" placeholder="EMAIL" value="${sessionScope.student.email}"><br>
     <input type="text" name="username" placeholder="USERNAME" value="${sessionScope.student.username}"><br>
     <input type="password" name="password" placeholder="PASSWORD"><br>
     <input type="password" name="rePassword" placeholder="REPEAT PASSWORD"><br>
     <input type="file" name="photo"><br>
-    <input type="submit" value="UPDATE">
+    <input type="submit" value="MODIFY">
 </form>
 </body>
 </html>
