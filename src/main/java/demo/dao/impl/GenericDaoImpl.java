@@ -44,7 +44,7 @@ public class GenericDaoImpl<T extends Serializable, ID extends Number> implement
     }
 
     @Override
-    public void update(T model) {
+    public void modify(T model) {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         sqlSession.update(namespace + ".update", model);
     }

@@ -27,8 +27,8 @@ public abstract class GenericServiceImpl<T extends Serializable, ID extends Numb
     }
 
     @Override
-    public void update(T model) {
-        genericDao.update(model);
+    public void modify(T model) {
+        genericDao.modify(model);
     }
 
     @Override

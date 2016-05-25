@@ -37,7 +37,7 @@ public class StudentServiceImpl extends GenericServiceImpl<Student, Integer> imp
             StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
             if (encryptor.checkPassword(plainPassword, encryptedPassword)) {
                 student.setLastIp(request.getRemoteAddr());
-                studentDao.update(student);
+                studentDao.modify(student);
                 student.setPassword(null);
                 return student;
             }

@@ -12,7 +12,7 @@
     <select id="search" parameterType="int" resultType="class">
         SELECT * FROM db_examination.class WHERE id = #{id}
     </select>
-    <update id="update" parameterType="class">
+    <update id="modify" parameterType="class">
         UPDATE db_examination.class SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate} WHERE id = #{id}
     </update>
     <delete id="remove" parameterType="int">

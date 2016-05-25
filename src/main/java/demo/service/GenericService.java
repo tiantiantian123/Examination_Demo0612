@@ -13,7 +13,7 @@ public interface GenericService<T extends Serializable, ID extends Number> {
 
     void remove(ID id);
 
-    void update(T model);
+    void modify(T model);
 
     List<T> list();
 

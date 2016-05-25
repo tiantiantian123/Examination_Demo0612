@@ -35,7 +35,7 @@
         SET lastIp = #{lastIp}, lastLogin = #{lastLogin}
         WHERE id = #{id}
     </update>
-    <update id="update" parameterType="student">
+    <update id="modify" parameterType="student">
         UPDATE db_examination.student
         SET
             email      = #{email},

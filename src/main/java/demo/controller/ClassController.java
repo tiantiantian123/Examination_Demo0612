@@ -45,7 +45,7 @@ public class ClassController extends BaseController {
 
     @RequestMapping("/update")
     private String update(Class aClass) {
-        classService.update(aClass);
+        classService.modify(aClass);
         return "redirect:/class/queryAll";
     }
 
