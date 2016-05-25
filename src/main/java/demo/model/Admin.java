@@ -3,9 +3,6 @@ package demo.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * Created by Administrator on 16-5-19.
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Admin extends BaseModel {
