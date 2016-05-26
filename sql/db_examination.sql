@@ -93,7 +93,7 @@ CREATE TABLE db_examination.student (
 )
   COMMENT '学生表';
 
-DROP TABLE db_examination.ip;
+DROP TABLE IF EXISTS db_examination.ip;
 CREATE TABLE db_examination.ip (
   id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
@@ -107,7 +107,7 @@ CREATE INDEX ind_ip ON db_examination.ip (start, end);
 
 
 ALTER TABLE db_examination.student
-  ADD CONSTRAINT
+ADD CONSTRAINT
   fk_student_classId
 FOREIGN KEY (classId)
 REFERENCES db_examination.class (id);
@@ -126,16 +126,6 @@ FROM db_examination.student;
 
 SELECT *
 FROM db_examination.class;
-
-SELECT count(*)
-FROM db_examination.ip
-WHERE address LIKE '%cz88.net%'
-ORDER BY id DESC;
-
-SELECT
-  s.username,
-  c.name
-FROM db_examination.student s INNER JOIN db_examination.class c ON s.classId = c.id;
 
 SHOW TABLE STATUS FROM db_examination;
 

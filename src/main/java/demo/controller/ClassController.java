@@ -1,6 +1,5 @@
 package demo.controller;
 
-import demo.dao.ClassDao;
 import demo.model.Class;
 import demo.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;

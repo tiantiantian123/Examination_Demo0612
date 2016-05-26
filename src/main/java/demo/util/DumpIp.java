@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by mingfei.net@gmail.com
@@ -22,9 +21,8 @@ import java.util.Properties;
 // TODO: 16-5-26 JDBC > MyBatis
 public class DumpIp {
     private static final String FILE = "data/ip.txt";
-    private static final java.lang.String URL = "jdbc:mysql:///db_examination";
+    private static final java.lang.String URL = "jdbc:mysql:///db_examination?user=root&password=system";
     private static final java.lang.String SQL = "INSERT INTO db_examination.ip VALUES(NULL, inet_aton(?), inet_aton(?), ?)";
-    private static final String PROPERTIES_FILE = "src/main/resources/jdbc.properties";
     private static List<IP> ips;
 
     private static void parse() {
@@ -44,13 +42,11 @@ public class DumpIp {
     }
 
     private static void dump() {
-        Properties properties = new Properties();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             new Driver();
-            properties.load(new FileReader(PROPERTIES_FILE));
-            connection = DriverManager.getConnection(URL, properties);
+            connection = DriverManager.getConnection(URL);
             connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(SQL);
             for (IP ip : ips) {
@@ -61,7 +57,7 @@ public class DumpIp {
             }
             preparedStatement.executeBatch();
             connection.commit();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (preparedStatement != null) {
