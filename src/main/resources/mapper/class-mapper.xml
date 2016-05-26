@@ -17,7 +17,7 @@
     </select>
     <update id="modify" parameterType="class">
         UPDATE db_examination.class
-        SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate}
+        SET name = #{name}, start Date = #{startDate}, finishDate = #{finishDate}
         WHERE id = #{id}
     </update>
     <delete id="remove" parameterType="int">
@@ -76,15 +76,11 @@
             s.lastIp,
             s.lastLogin,
             ip.address
-        FROM db_examination.class c INNER JOIN db_examination.student s INNER JOIN db_examination.ip ip
-                ON c.id = s.classId AND inet_aton(s.lastIp) BETWEEN ip.start AND ip.end
+        FROM db_examination.class c INNER JOIN db_examination.student s
+                ON c.id = s.classId
+            LEFT OUTER JOIN db_examination.ip ip
+                ON inet_aton(s.lastIp) BETWEEN ip.start AND ip.end
         WHERE c.id = #{id}
         ORDER BY s.id
-    </select>
-
-    <select id="selectIpFromStudent" parameterType="java.lang.String" resultType="ip">
-        SELECT adress
-        FROM db_examination.ip
-        WHERE inet_aton(#{ip}) BETWEEN start AND end
     </select>
 </mapper>

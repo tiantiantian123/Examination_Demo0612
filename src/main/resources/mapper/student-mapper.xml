@@ -38,23 +38,23 @@
     <update id="modify" parameterType="student">
         UPDATE db_examination.student
         SET
-            email      = #{email},
-            username   = #{username},
-            password   = #{password},
-            gender     = #{gender},
-            dob        = #{dob},
-            tel        = #{tel},
-            education  = #{education},
-            major      = #{major},
-            academy    = #{academy},
+            email   = #{email},
+            username = #{username},
+            password = #{password},
+            gender = #{gender},
+            dob = #{dob},
+            tel = #{tel},
+            education = #{education},
+            major = #{major},
+            academy = #{academy},
             graduation = #{graduation},
-            training   = #{training},
+            training = #{training},
             experience = #{experience},
-            photo      = #{photo},
-            remark     = #{remark},
-            lastIp     = #{lastIp},
-            lastLogin  = now(),
-            classId    = #{classId}
+            photo = #{photo},
+            remark = #{remark},
+            lastIp = #{lastIp},
+            lastLogin = now(),
+            classId = #{classId}
         WHERE id = #{id}
     </update>
     <resultMap id="search_map" type="student">
@@ -104,9 +104,10 @@
             s.lastLogin,
             ip.address
         FROM db_examination.class c INNER JOIN db_examination.student s
-            INNER JOIN db_examination.ip ip
-                ON c.id = s.classId AND inet_aton(s.lastIp) BETWEEN ip.start AND ip.end
-        WHERE s.username LIKE '%' || #{key} || '%'
+                ON c.id = s.classId
+            LEFT OUTER JOIN db_examination.ip ip
+                ON inet_aton(s.lastIp) BETWEEN ip.start AND ip.end
+        WHERE s.username LIKE "%"#{key}"%"
         ORDER BY s.id
     </select>
 </mapper>
