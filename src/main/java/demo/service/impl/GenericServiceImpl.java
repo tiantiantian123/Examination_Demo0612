@@ -32,13 +32,18 @@ public abstract class GenericServiceImpl<T extends Serializable, ID extends Numb
     }
 
     @Override
-    public List<T> list() {
-        return genericDao.list();
+    public T search(ID id) {
+        return genericDao.search(id);
     }
 
     @Override
-    public T search(ID id) {
-        return genericDao.search(id);
+    public T search(String statement, Object parameter) {
+        return genericDao.search(statement, parameter);
+    }
+
+    @Override
+    public List<T> list() {
+        return genericDao.list();
     }
 
     @Override

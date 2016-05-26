@@ -4,18 +4,87 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="class">
     <insert id="create" parameterType="class" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO db_examination.class VALUES(NULL, #{name}, #{startDate}, #{finishDate})
+        INSERT INTO db_examination.class VALUES (NULL, #{name}, #{startDate}, #{finishDate})
     </insert>
     <select id="list" resultType="class">
-        SELECT * FROM db_examination.class
+        SELECT *
+        FROM db_examination.class
     </select>
     <select id="search" parameterType="int" resultType="class">
-        SELECT * FROM db_examination.class WHERE id = #{id}
+        SELECT *
+        FROM db_examination.class
+        WHERE id = #{id}
     </select>
     <update id="modify" parameterType="class">
-        UPDATE db_examination.class SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate} WHERE id = #{id}
+        UPDATE db_examination.class
+        SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate}
+        WHERE id = #{id}
     </update>
     <delete id="remove" parameterType="int">
-        DELETE FROM db_examination.class WHERE id = #{id}
+        DELETE FROM db_examination.class
+        WHERE id = #{id}
     </delete>
+
+    <resultMap id="students_map" type="class">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="startDate" column="startDate"/>
+        <result property="finishDate" column="finishDate"/>
+        <collection property="students" ofType="student">
+            <id property="id" column="student_id"/>
+            <result property="email" column="email"/>
+            <result property="username" column="username"/>
+            <result property="gender" column="gender"/>
+            <result property="dob" column="dob"/>
+            <result property="tel" column="tel"/>
+            <result property="education" column="education"/>
+            <result property="major" column="major"/>
+            <result property="academy" column="academy"/>
+            <result property="graduation" column="graduation"/>
+            <result property="training" column="training"/>
+            <result property="experience" column="experience"/>
+            <result property="photo" column="photo"/>
+            <result property="remark" column="remark"/>
+            <result property="lastIp" column="lastIp"/>
+            <result property="lastLogin" column="lastLogin"/>
+            <association property="ip" javaType="ip">
+                <result property="address" column="address"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="students" parameterType="int" resultMap="students_map">
+        SELECT
+            c.id,
+            c.name,
+            c.startDate,
+            c.finishDate,
+            s.id,
+            s.email,
+            s.username,
+            s.gender,
+            s.dob,
+            s.tel,
+            s.education,
+            s.major,
+            s.academy,
+            s.graduation,
+            s.training,
+            s.experience,
+            s.photo,
+            s.remark,
+            s.lastIp,
+            s.lastLogin,
+            ip.address
+        FROM db_examination.class c INNER JOIN db_examination.student s INNER JOIN db_examination.ip ip
+                ON c.id = s.classId AND inet_aton(s.lastIp) BETWEEN ip.start AND ip.end
+        WHERE c.id = #{id}
+        ORDER BY s.id
+    </select>
+
+    <select id="selectIpFromStudent" parameterType="java.lang.String" resultType="ip">
+        SELECT adress
+        FROM db_examination.ip
+        WHERE inet_aton(#{ip}) BETWEEN start AND end
+    </select>
 </mapper>

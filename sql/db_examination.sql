@@ -93,6 +93,18 @@ CREATE TABLE db_examination.student (
 )
   COMMENT '学生表';
 
+DROP TABLE db_examination.ip;
+CREATE TABLE db_examination.ip (
+  id     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  start  INT UNSIGNED COMMENT '起始IP',
+  end    INT UNSIGNED COMMENT '终止IP',
+  address VARCHAR(255) COMMENT '地理位置'
+)
+  COMMENT 'IP表';
+
+CREATE INDEX ind_ip ON db_examination.ip (start, end);
+
 
 ALTER TABLE db_examination.student
   ADD CONSTRAINT
@@ -115,6 +127,10 @@ FROM db_examination.student;
 SELECT *
 FROM db_examination.class;
 
+SELECT *
+FROM db_examination.ip
+ORDER BY id DESC;
+
 SELECT
   s.username,
   c.name
@@ -123,15 +139,3 @@ FROM db_examination.student s INNER JOIN db_examination.class c ON s.classId = c
 SHOW TABLE STATUS FROM db_examination;
 
 SHOW FULL COLUMNS FROM db_examination.student;
-
-
-CREATE TABLE db_examination.user (
-  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(255),
-  password VARCHAR(255)
-);
-
-DESC db_examination.user;
-
-SELECT *
-FROM db_examination.user;

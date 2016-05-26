@@ -40,7 +40,7 @@
     <c:forEach var="aClass" items="${sessionScope.classes}" varStatus="vs">
         <tr>
             <td>${vs.count}</td>
-            <td><a href="${ctx}/student/query/${aClass.id}">${aClass.name}</a></td>
+            <td><a href="${ctx}/class/students/${aClass.id}">${aClass.name}</a></td>
             <td>${aClass.startDate}</td>
             <td>${aClass.finishDate}</td>
             <td><a href="${ctx}/class/search/${aClass.id}">编辑</a></td>

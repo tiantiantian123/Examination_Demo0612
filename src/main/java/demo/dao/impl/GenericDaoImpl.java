@@ -50,15 +50,21 @@ public class GenericDaoImpl<T extends Serializable, ID extends Number> implement
     }
 
     @Override
-    public List<T> list() {
-        SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        return sqlSession.selectList(namespace + ".list");
-    }
-
-    @Override
     public T search(ID id) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         return sqlSession.selectOne(namespace + ".search", id);
+    }
+
+    @Override
+    public T search(String statement, Object parameter) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        return sqlSession.selectOne(statement, parameter);
+    }
+
+    @Override
+    public List<T> list() {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        return sqlSession.selectList(namespace + ".list");
     }
 
     @Override

@@ -58,12 +58,6 @@ public class StudentController extends BaseController {
         }
     }
 
-    @RequestMapping("/query/{id}")
-    private String query(@PathVariable int id) {
-        session.setAttribute("students", studentDao.list("student.query", id));
-        return "redirect:/assistant/edit_student.jsp";
-    }
-
     @RequestMapping("/update")
     private void update(Student student) {
         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();

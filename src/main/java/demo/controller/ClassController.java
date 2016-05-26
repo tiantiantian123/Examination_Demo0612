@@ -54,4 +54,10 @@ public class ClassController extends BaseController {
         classService.remove(id);
         return "redirect:/class/queryAll";
     }
+
+    @RequestMapping("students/{id}")
+    private String students(@PathVariable int id) {
+        session.setAttribute("aClass", classService.search("class.students", id));
+        return "redirect:/assistant/edit_student.jsp";
+    }
 }

@@ -2,6 +2,8 @@ package demo.model;
 
 import lombok.*;
 
+import java.util.Date;
+
 /**
  * Created by non-perfectionist
  * 9:41 2016/5/16.
@@ -25,6 +27,9 @@ public class Student extends BaseModel {
     private String photo;
     private String remark;
     private String lastIp;
-    private String lastLogin;
+    private Date lastLogin;
     private int classId;
+
+    // one to one
+    private IP ip;
 }
