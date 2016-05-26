@@ -4,6 +4,7 @@ import demo.dao.AssistantDao;
 import demo.dao.GenericDao;
 import demo.model.Assistant;
 import demo.service.AssistantService;
+import demo.util.Encryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,8 +35,7 @@ public class AssistantServiceImpl extends GenericServiceImpl<Assistant, Integer>
         if (assistants.size() == 1) {
             assistant = assistants.get(0);
             String encryptedPassword = assistant.getPassword();
-            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-            if (encryptor.checkPassword(plainPassword, encryptedPassword)) {
+            if (Encryptor.getEncryptor().checkPassword(plainPassword, encryptedPassword)) {
                 assistant.setPassword(null);
                 return assistant;
             }

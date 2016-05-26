@@ -4,6 +4,7 @@ import demo.dao.AdminDao;
 import demo.dao.GenericDao;
 import demo.model.Admin;
 import demo.service.AdminService;
+import demo.util.Encryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,8 +34,7 @@ public class AdminServiceImpl extends GenericServiceImpl<Admin, Integer> impleme
         if (admins.size() == 1) {
             admin = admins.get(0);
             String encryptedPassword = admin.getPassword();
-            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-            if (encryptor.checkPassword(plainPassword, encryptedPassword)) {
+            if (Encryptor.getEncryptor().checkPassword(plainPassword, encryptedPassword)) {
                 admin.setPassword(null);
                 return admin;
             }

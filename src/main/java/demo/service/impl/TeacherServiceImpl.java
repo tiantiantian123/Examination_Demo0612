@@ -4,6 +4,7 @@ import demo.dao.GenericDao;
 import demo.dao.TeacherDao;
 import demo.model.Teacher;
 import demo.service.TeacherService;
+import demo.util.Encryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,8 +34,7 @@ public class TeacherServiceImpl extends GenericServiceImpl<Teacher, Integer> imp
         if (teachers.size() == 1) {
             teacher = teachers.get(0);
             String encryptedPassword = teacher.getPassword();
-            StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
-            if (encryptor.checkPassword(plainPassword, encryptedPassword)) {
+            if (Encryptor.getEncryptor().checkPassword(plainPassword, encryptedPassword)) {
                 teacher.setPassword(null);
                 return teacher;
             }

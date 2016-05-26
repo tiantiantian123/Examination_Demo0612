@@ -6,6 +6,7 @@ import demo.model.Teacher;
 import demo.service.AdminService;
 import demo.service.AssistantService;
 import demo.service.TeacherService;
+import demo.util.Encryptor;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,12 +45,14 @@ public class AdminController extends BaseController {
 
     @RequestMapping("/createTeacher")
     private String createTeacher(Teacher teacher) {
+        teacher.setPassword(Encryptor.getEncryptor().encryptPassword(teacher.getPassword()));
         teacherService.create(teacher);
         return "redirect:/admin/admin.jsp";
     }
 
     @RequestMapping("/createAssistant")
     private String createAssistant(Assistant assistant) {
+        assistant.setPassword(Encryptor.getEncryptor().encryptPassword(assistant.getPassword()));
         assistantService.create(assistant);
         return "redirect:/admin/admin.jsp";
     }
