@@ -4,6 +4,11 @@
 <head>
     <title>学生管理 - 在线考试</title>
     <link rel="stylesheet" href="${ctx}/static/css/style.css">
+    <script src="${ctx}/static/js/jquery-1.12.3.min.js"></script>
+    <script>
+        $(function () {
+        });
+    </script>
 </head>
 <body>
 <c:if test="${sessionScope.assistant eq null}">
@@ -34,13 +39,14 @@
         <th>备注</th>
         <th>最后登录地点</th>
         <th>最后登录时间</th>
+        <th colspan="2">操作</th>
     </tr>
     <c:forEach var="student" items="${sessionScope.aClass.students}" varStatus="vs">
         <tr>
             <td>${vs.count}</td>
             <td>${student.username}</td>
             <td>${student.gender}</td>
-            <td>${student.email}</td>
+            <td><a href="mailto:${student.email}">${student.email}</a></td>
             <td>${student.dob}</td>
             <td>${student.tel}</td>
             <td>${student.education}</td>
@@ -51,8 +57,10 @@
             <td>${student.experience}</td>
             <td>${student.photo}</td>
             <td>${student.remark}</td>
-            <td>${student.lastIp} - ${student.ip.address}</td>
+            <td title="${student.lastIp}">${student.ip.address}</td>
             <td><fmt:formatDate value="${student.lastLogin}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td><a href="">编辑</a></td>
+            <td><a href="">删除</a></td>
         </tr>
     </c:forEach>
 </table>
