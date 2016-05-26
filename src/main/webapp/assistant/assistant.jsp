@@ -19,6 +19,11 @@
 <h1>教务管理</h1>
 当前教务：${sessionScope.assistant.username}
 <hr>
+<form action="${ctx}/student/search" method="post">
+    <input type="text" name="key">
+    <input type="submit" value="搜索学生">
+</form>
+<hr>
 <form action="${ctx}/class/create" method="post">
     <label for="startDate">班级名称</label>
     <input type="text" name="name"><br>

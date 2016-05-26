@@ -98,4 +98,10 @@ public class StudentController extends BaseController {
 
 //        ...
     }
+
+    @RequestMapping("search")
+    private String search(String key) {
+        session.setAttribute("students", studentService.list("student.search", key));
+        return "redirect:/assistant/search_student.jsp";
+    }
 }

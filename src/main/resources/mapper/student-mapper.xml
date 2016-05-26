@@ -57,4 +57,56 @@
             classId    = #{classId}
         WHERE id = #{id}
     </update>
+    <resultMap id="search_map" type="student">
+        <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="gender" column="gender"/>
+        <result property="dob" column="dob"/>
+        <result property="tel" column="tel"/>
+        <result property="education" column="education"/>
+        <result property="major" column="major"/>
+        <result property="academy" column="academy"/>
+        <result property="graduation" column="graduation"/>
+        <result property="training" column="training"/>
+        <result property="experience" column="experience"/>
+        <result property="photo" column="photo"/>
+        <result property="remark" column="remark"/>
+        <result property="lastIp" column="lastIp"/>
+        <result property="lastLogin" column="lastLogin"/>
+        <result property="classId" column="classId"/>
+        <association property="clazz" javaType="class">
+            <result property="name" column="name"/>
+        </association>
+        <association property="ip" javaType="ip">
+            <result property="address" column="address"/>
+        </association>
+    </resultMap>
+    <select id="search" parameterType="java.lang.String" resultMap="search_map">
+        SELECT
+            c.name,
+            s.id,
+            s.email,
+            s.username,
+            s.gender,
+            s.dob,
+            s.tel,
+            s.education,
+            s.major,
+            s.academy,
+            s.graduation,
+            s.training,
+            s.experience,
+            s.photo,
+            s.remark,
+            s.lastIp,
+            s.lastLogin,
+            ip.address
+        FROM db_examination.class c INNER JOIN db_examination.student s
+            INNER JOIN db_examination.ip ip
+                ON c.id = s.classId AND inet_aton(s.lastIp) BETWEEN ip.start AND ip.end
+        WHERE s.username LIKE '%' || #{key} || '%'
+        ORDER BY s.id
+    </select>
 </mapper>

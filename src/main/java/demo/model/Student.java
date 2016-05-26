@@ -30,6 +30,8 @@ public class Student extends BaseModel {
     private Date lastLogin;
     private int classId;
 
+    // many to one
+    private Class clazz;
     // one to one
     private IP ip;
 }
