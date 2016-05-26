@@ -95,10 +95,10 @@ CREATE TABLE db_examination.student (
 
 DROP TABLE db_examination.ip;
 CREATE TABLE db_examination.ip (
-  id     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
-  start  INT UNSIGNED COMMENT '起始IP',
-  end    INT UNSIGNED COMMENT '终止IP',
+  start   INT UNSIGNED COMMENT '起始IP',
+  end     INT UNSIGNED COMMENT '终止IP',
   address VARCHAR(255) COMMENT '地理位置'
 )
   COMMENT 'IP表';
@@ -127,8 +127,9 @@ FROM db_examination.student;
 SELECT *
 FROM db_examination.class;
 
-SELECT *
+SELECT count(*)
 FROM db_examination.ip
+WHERE address LIKE '%cz88.net%'
 ORDER BY id DESC;
 
 SELECT
@@ -139,3 +140,5 @@ FROM db_examination.student s INNER JOIN db_examination.class c ON s.classId = c
 SHOW TABLE STATUS FROM db_examination;
 
 SHOW FULL COLUMNS FROM db_examination.student;
+
+SHOW INDEX FROM db_examination.ip;
