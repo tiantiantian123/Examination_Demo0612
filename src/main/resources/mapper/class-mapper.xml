@@ -17,7 +17,7 @@
     </select>
     <update id="modify" parameterType="class">
         UPDATE db_examination.class
-        SET name = #{name}, start Date = #{startDate}, finishDate = #{finishDate}
+        SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate}
         WHERE id = #{id}
     </update>
     <delete id="remove" parameterType="int">
