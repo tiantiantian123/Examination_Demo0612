@@ -127,6 +127,9 @@ FROM db_examination.student;
 SELECT *
 FROM db_examination.class;
 
+SELECT *
+FROM db_examination.ip;
+
 SHOW TABLE STATUS FROM db_examination;
 
 SHOW FULL COLUMNS FROM db_examination.student;
