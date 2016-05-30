@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="class">
     <insert id="create" parameterType="class" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO db_examination.class VALUES (NULL, #{name}, #{startDate}, #{finishDate})
+        INSERT INTO db_examination.class VALUES (NULL, #{title}, #{startDate}, #{finishDate})
     </insert>
     <select id="list" resultType="class">
         SELECT *
@@ -17,7 +17,7 @@
     </select>
     <update id="modify" parameterType="class">
         UPDATE db_examination.class
-        SET name = #{name}, startDate = #{startDate}, finishDate = #{finishDate}
+        SET title = #{title}, startDate = #{startDate}, finishDate = #{finishDate}
         WHERE id = #{id}
     </update>
     <delete id="remove" parameterType="int">
@@ -27,7 +27,7 @@
 
     <resultMap id="students_map" type="class">
         <result property="id" column="id"/>
-        <result property="name" column="name"/>
+        <result property="title" column="title"/>
         <result property="startDate" column="startDate"/>
         <result property="finishDate" column="finishDate"/>
         <collection property="students" ofType="student">
@@ -56,7 +56,7 @@
     <select id="students" parameterType="int" resultMap="students_map">
         SELECT
             c.id,
-            c.name,
+            c.title,
             c.startDate,
             c.finishDate,
             s.id,

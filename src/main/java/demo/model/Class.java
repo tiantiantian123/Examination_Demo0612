@@ -13,7 +13,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Class extends BaseModel {
     private Integer id;
-    private String name;
+    private String title;
     private String startDate;
     private String finishDate;
 

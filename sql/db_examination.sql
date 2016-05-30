@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS db_examination.class;
 CREATE TABLE db_examination.class (
   id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
-  name       VARCHAR(255) NOT NULL
+  title      VARCHAR(255) NOT NULL
   COMMENT '班级名称',
   startDate  DATE         NOT NULL
   COMMENT '开班日期',
@@ -103,14 +103,36 @@ CREATE TABLE db_examination.ip (
 )
   COMMENT 'IP表';
 
+DROP TABLE IF EXISTS db_examination.course;
+CREATE TABLE db_examination.course (
+  id    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  title VARCHAR(255) COMMENT '课程名称'
+)
+  COMMENT '课程表';
+
+DROP TABLE IF EXISTS db_examination.paper;
+CREATE TABLE db_examination.paper (
+  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  courseId INT UNSIGNED COMMENT 'FK 课程ID'
+)
+  COMMENT '试卷表';
+
+
 CREATE INDEX ind_ip ON db_examination.ip (start, end);
 
-
 ALTER TABLE db_examination.student
-ADD CONSTRAINT
+  ADD CONSTRAINT
   fk_student_classId
 FOREIGN KEY (classId)
 REFERENCES db_examination.class (id);
+
+ALTER TABLE db_examination.paper
+  ADD CONSTRAINT
+  fk_paper_courseId
+FOREIGN KEY (courseId)
+REFERENCES db_examination.course (id);
 
 SELECT *
 FROM db_examination.admin;

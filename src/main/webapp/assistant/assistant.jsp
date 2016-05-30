@@ -25,8 +25,8 @@
 </form>
 <hr>
 <form action="${ctx}/class/create" method="post">
-    <label for="startDate">班级名称</label>
-    <input type="text" name="name"><br>
+    <label for="title">班级名称</label>
+    <input id="title" type="text" name="title"><br>
     <label for="startDate">开班日期</label>
     <input id="startDate" type="date" name="startDate"><br>
     <label for="finishDate">结业日期</label>
@@ -45,7 +45,7 @@
     <c:forEach var="aClass" items="${sessionScope.classes}" varStatus="vs">
         <tr>
             <td>${vs.count}</td>
-            <td><a href="${ctx}/class/students/${aClass.id}">${aClass.name}</a></td>
+            <td><a href="${ctx}/class/students/${aClass.id}">${aClass.title}</a></td>
             <td>${aClass.startDate}</td>
             <td>${aClass.finishDate}</td>
             <td><a href="${ctx}/class/search/${aClass.id}">编辑</a></td>

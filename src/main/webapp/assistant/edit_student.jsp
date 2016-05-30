@@ -23,7 +23,7 @@
 当前教务：${sessionScope.assistant.username}
 <hr>
 <div style="text-align: center">
-    <p>${sessionScope.aClass.name}</p>
+    <p>${sessionScope.aClass.title}</p>
     <p>${sessionScope.aClass.startDate} - ${sessionScope.aClass.finishDate}</p>
 </div>
 <table class="fix" border="1">

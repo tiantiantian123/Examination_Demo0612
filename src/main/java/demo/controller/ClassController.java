@@ -42,8 +42,8 @@ public class ClassController extends BaseController {
         return "redirect:/assistant/edit_class.jsp";
     }
 
-    @RequestMapping("/update")
-    private String update(Class aClass) {
+    @RequestMapping("/modify")
+    private String modify(Class aClass) {
         classService.modify(aClass);
         return "redirect:/class/queryAll";
     }

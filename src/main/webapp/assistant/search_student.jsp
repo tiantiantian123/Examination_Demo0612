@@ -43,7 +43,7 @@
         <tr>
             <td title="${vs.count}">${vs.count}</td>
             <td title="${student.username}">${student.username}</td>
-            <td title="${student.clazz.name}">${student.clazz.name}</td>
+            <td title="${student.clazz.title}">${student.clazz.title}</td>
             <td title="${student.gender}">${student.gender}</td>
             <td title="${student.email}"><a href="mailto:${student.email}">${student.email}</a></td>
             <td title="${student.dob}">${student.dob}</td>

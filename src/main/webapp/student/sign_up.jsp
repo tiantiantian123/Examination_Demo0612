@@ -25,7 +25,7 @@
             <div class="col-sm-4">
                 <select class="form-control" id="classId" name="classId">
                     <c:forEach var="aClass" items="${sessionScope.classes}">
-                        <option value="${aClass.id}">${aClass.name}</option>
+                        <option value="${aClass.id}">${aClass.title}</option>
                     </c:forEach>
                 </select>
             </div>
