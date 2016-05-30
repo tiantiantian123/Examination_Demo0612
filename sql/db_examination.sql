@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS db_examination;
 CREATE DATABASE db_examination;
 
+-- ----------------------- TABLE ------------------------
 -- table admin
 DROP TABLE IF EXISTS db_examination.admin;
 CREATE TABLE db_examination.admin (
@@ -93,6 +94,7 @@ CREATE TABLE db_examination.student (
 )
   COMMENT '学生表';
 
+-- table ip
 DROP TABLE IF EXISTS db_examination.ip;
 CREATE TABLE db_examination.ip (
   id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
@@ -103,25 +105,62 @@ CREATE TABLE db_examination.ip (
 )
   COMMENT 'IP表';
 
+-- table course
 DROP TABLE IF EXISTS db_examination.course;
 CREATE TABLE db_examination.course (
   id    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
-  title VARCHAR(255) COMMENT '课程名称'
+  title VARCHAR(255) NOT NULL
+  COMMENT '课程名称'
 )
   COMMENT '课程表';
 
+INSERT INTO db_examination.course VALUE (NULL, '网页设计基础');
+INSERT INTO db_examination.course VALUE (NULL, 'Java SE 程序设计');
+INSERT INTO db_examination.course VALUE (NULL, '数据库基础');
+INSERT INTO db_examination.course VALUE (NULL, 'Java EE 程序设计');
+INSERT INTO db_examination.course VALUE (NULL, 'Java EE 框架技术');
+INSERT INTO db_examination.course VALUE (NULL, 'Android 应用开发');
+
+-- table paper
 DROP TABLE IF EXISTS db_examination.paper;
 CREATE TABLE db_examination.paper (
-  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
-  courseId INT UNSIGNED COMMENT 'FK 课程ID'
+  title     VARCHAR(255) NOT NULL
+  COMMENT '试卷名称',
+  time      INT(3)       NOT NULL
+  COMMENT '考试时间：分钟',
+  courseId  INT UNSIGNED COMMENT 'FK 课程ID',
+  teacherId INT UNSIGNED COMMENT 'FK 教师ID'
 )
   COMMENT '试卷表';
 
+-- table test
+DROP TABLE IF EXISTS db_examination.test;
+CREATE TABLE db_examination.test (
+  id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  question VARCHAR(255)  NOT NULL
+  COMMENT '问题',
+  optionA  VARCHAR(255) COMMENT 'A选项',
+  optionB  VARCHAR(255) COMMENT 'B选项',
+  optionC  VARCHAR(255) COMMENT 'C选项',
+  optionD  VARCHAR(255) COMMENT 'D选项',
+  answer   VARCHAR(2048) NOT NULL
+  COMMENT '答案',
+  score    INT(2)        NOT NULL
+  COMMENT '分数',
+  type     CHAR(1)       NOT NULL
+  COMMENT '题型：x-选择题，t-填空题，j-简答题，b-编程题',
+  paperId  INT UNSIGNED COMMENT 'FK 试卷ID'
+)
+  COMMENT '试题表';
 
+-- ----------------------- INDEX ------------------------
 CREATE INDEX ind_ip ON db_examination.ip (start, end);
 
+-- ----------------------- FOREIGN KEY ------------------------
 ALTER TABLE db_examination.student
   ADD CONSTRAINT
   fk_student_classId
@@ -134,6 +173,19 @@ ALTER TABLE db_examination.paper
 FOREIGN KEY (courseId)
 REFERENCES db_examination.course (id);
 
+ALTER TABLE db_examination.paper
+  ADD CONSTRAINT
+  fk_paper_teacherId
+FOREIGN KEY (teacherId)
+REFERENCES db_examination.teacher (id);
+
+ALTER TABLE db_examination.test
+  ADD CONSTRAINT
+  fk_test_paperId
+FOREIGN KEY (paperId)
+REFERENCES db_examination.paper (id);
+
+-- ----------------------- SELECTION ------------------------
 SELECT *
 FROM db_examination.admin;
 
@@ -152,8 +204,14 @@ FROM db_examination.class;
 SELECT *
 FROM db_examination.ip;
 
-SHOW TABLE STATUS FROM db_examination;
+SELECT *
+FROM db_examination.course;
 
-SHOW FULL COLUMNS FROM db_examination.student;
+SELECT *
+FROM db_examination.paper;
 
-SHOW INDEX FROM db_examination.ip;
+SELECT *
+FROM db_examination.type;
+
+SELECT *
+FROM db_examination.test;

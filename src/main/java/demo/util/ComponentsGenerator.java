@@ -65,7 +65,7 @@ class ComponentsGenerator {
         for (String kv : properties.split(", ")) {
             String[] strings = kv.split(" ");
             propertyMap.put(strings[1], strings[0]);
-            columnMap.put(convertJavaNameToDatabaseName(strings[1]), strings[1]);
+            columnMap.put(strings[1], strings[1]);
         }
 
         Map<String, Object> map = new LinkedHashMap<>();
