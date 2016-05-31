@@ -12,6 +12,14 @@
     width: 100%;
 }
 
+.preview {
+    /*display: none;*/
+}
+
+#question_hint {
+    display: none;
+}
+
 td {
     white-space: nowrap;
     overflow: hidden;

@@ -15,6 +15,6 @@ public class Test extends BaseModel {
     private String optionD;
     private String answer;
     private int score;
-    private char type;
+    private String type;
     private int paperId;
 }
