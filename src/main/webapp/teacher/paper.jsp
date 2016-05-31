@@ -49,7 +49,7 @@
     <select id="type" name="type">
         <option value="x">选择题</option>
         <option value="t">填空题</option>
-        <option value="j">简单题</option>
+        <option value="j">简答题</option>
         <option value="b">编程题</option>
     </select><br>
     <label for="question">题目</label>
