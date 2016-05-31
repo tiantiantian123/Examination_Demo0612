@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>试题管理 - 在线考试</title>
-    <link href="${ctx}/static/css/style.css">
+    <link rel="stylesheet" href="${ctx}/static/css/style.css">
 </head>
 <body>
 <c:if test="${sessionScope.teacher eq null}">
