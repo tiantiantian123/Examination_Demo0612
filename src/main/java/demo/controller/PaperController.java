@@ -25,7 +25,7 @@ public class PaperController extends BaseController {
         int teacherId = teacher.getId();
         paper.setTeacherId(teacherId);
         paperService.create(paper);
-        session.setAttribute("courses", courseService.list("query", teacherId));
+        session.setAttribute("courses", courseService.list("course.query", teacherId));
         return "redirect:/teacher/teacher.jsp";
     }
 

@@ -61,6 +61,7 @@
             p.id,
             p.time,
             c.title,
+            t.id AS id_test,
             t.question,
             t.optionA,
             t.optionB,

@@ -51,8 +51,7 @@
             p.courseId,
             p.teacherId
         FROM db_examination.course c LEFT OUTER JOIN db_examination.paper p
-                ON c.id = p.courseId
-        WHERE p.teacherId = #{id} OR p.teacherId IS NULL
+                ON c.id = p.courseId AND p.teacherId = #{id}
         ORDER BY 1
     </select>
 </mapper>

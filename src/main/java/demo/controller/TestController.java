@@ -1,6 +1,8 @@
 package demo.controller;
 
+import demo.model.Paper;
 import demo.model.Test;
+import demo.service.PaperService;
 import demo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,17 @@ public class TestController extends BaseController {
     @Autowired
     private TestService testService;
 
+    @Autowired
+    private PaperService paperService;
+
     @RequestMapping("create")
     private String create(Test test) {
+        Paper paper = (Paper) session.getAttribute("paper");
+        int paperId = paper.getId();
+        test.setPaperId(paperId);
         testService.create(test);
-        return "redirect:list";
+        session.setAttribute("paper", paperService.search("paper.query", paperId));
+        return "redirect:/teacher/paper.jsp";
     }
 
     @RequestMapping("list")
