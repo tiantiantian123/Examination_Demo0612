@@ -24,7 +24,7 @@
         DELETE FROM db_examination.course
         WHERE id = #{id}
     </delete>
-    <insert id="create" parameterType="Course" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="course" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.course (
             title
         )
@@ -32,4 +32,29 @@
             #{title}
         );
     </insert>
+    <resultMap id="query_map" type="course">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <collection property="papers" ofType="paper">
+            <id property="id" column="id_paper"/>
+            <result property="time" column="time"/>
+            <result property="courseId" column="courseId"/>
+            <result property="teacherId" column="teacherId"/>
+        </collection>
+    </resultMap>
+    <select id="query" parameterType="int" resultMap="query_map">
+        SELECT
+            c.id,
+            c.title,
+            p.id AS id_paper,
+            p.time,
+            p.courseId,
+            p.teacherId
+        FROM db_examination.course c LEFT OUTER JOIN db_examination.paper p
+                ON c.id = p.courseId
+            LEFT OUTER JOIN db_examination.teacher t
+                ON p.teacherId = t.id
+        WHERE t.id = #{id}
+        ORDER BY 1
+    </select>
 </mapper>

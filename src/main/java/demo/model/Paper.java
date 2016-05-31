@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 public class Paper extends BaseModel {
 
     private Integer id;
-    private String title;
     private int time;
     private int courseId;
     private int teacherId;

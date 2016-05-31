@@ -26,7 +26,7 @@
         DELETE FROM ${db}.${table}
         WHERE id = ${'#'}{id}
     </delete>
-    <insert id="create" parameterType="${model}" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="${model?lower_case}" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO ${db}.${table} (
         <#list columns?keys as key>
             ${key}<#if key_has_next>, </#if>

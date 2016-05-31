@@ -7,7 +7,6 @@
     <body>
         <h1>Paper Create</h1>
         <form action="${ctx}/paper/create" method="post">
-            TITLE: <input name="title"><br>
             TIME: <input name="time"><br>
             COURSEID: <input name="courseId"><br>
             TEACHERID: <input name="teacherId"><br>

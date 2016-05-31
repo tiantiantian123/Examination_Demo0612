@@ -32,7 +32,7 @@
         DELETE FROM db_examination.test
         WHERE id = #{id}
     </delete>
-    <insert id="create" parameterType="Test" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="test" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.test (
             question, 
             optionA,

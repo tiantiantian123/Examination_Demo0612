@@ -17,9 +17,8 @@
     <update id="modify">
         UPDATE db_examination.paper
         SET
-            title = #{title}, 
             time = #{time}, 
-            courseId = #{courseId},
+            courseId = #{courseId}, 
             teacherId = #{teacherId}
         WHERE id = #{id}
     </update>
@@ -27,15 +26,13 @@
         DELETE FROM db_examination.paper
         WHERE id = #{id}
     </delete>
-    <insert id="create" parameterType="Paper" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="paper" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.paper (
-            title, 
             time, 
-            courseId,
+            courseId, 
             teacherId
         )
         VALUES (
-            #{title}, 
             #{time}, 
             #{courseId}, 
             #{teacherId}

@@ -16,7 +16,6 @@
             <tr>
                 <th>INDEX</th>
                 <th>ID</th>
-                <th>TITLE</th>
                 <th>TIME</th>
                 <th>COURSEID</th>
                 <th>TEACHERID</th>
@@ -26,7 +25,6 @@
             <tr>
                 <td>${vs.count}</td>
                 <td>${paper.id}</td>
-                <td>${paper.title}</td>
                 <td>${paper.time}</td>
                 <td>${paper.courseId}</td>
                 <td>${paper.teacherId}</td>
