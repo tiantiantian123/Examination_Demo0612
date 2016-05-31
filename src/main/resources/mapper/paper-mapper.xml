@@ -17,8 +17,8 @@
     <update id="modify">
         UPDATE db_examination.paper
         SET
-            time = #{time}, 
-            courseId = #{courseId}, 
+            time      = #{time},
+            courseId  = #{courseId},
             teacherId = #{teacherId}
         WHERE id = #{id}
     </update>
@@ -28,14 +28,51 @@
     </delete>
     <insert id="create" parameterType="paper" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.paper (
-            time, 
-            courseId, 
+            time,
+            courseId,
             teacherId
         )
         VALUES (
-            #{time}, 
-            #{courseId}, 
+            #{time},
+            #{courseId},
             #{teacherId}
         );
     </insert>
+    <resultMap id="query_map" type="paper">
+        <id property="id" column="id"/>
+        <result property="time" column="time"/>
+        <association property="course" javaType="course">
+            <result property="title" column="title"/>
+        </association>
+        <collection property="tests" ofType="test">
+            <id property="id" column="id_test"/>
+            <result property="question" column="question"/>
+            <result property="optionA" column="optionA"/>
+            <result property="optionB" column="optionB"/>
+            <result property="optionC" column="optionC"/>
+            <result property="optionD" column="optionD"/>
+            <result property="answer" column="answer"/>
+            <result property="score" column="score"/>
+            <result property="type" column="type"/>
+        </collection>
+    </resultMap>
+    <select id="query" parameterType="int" resultMap="query_map">
+        SELECT
+            p.id,
+            p.time,
+            c.title,
+            t.question,
+            t.optionA,
+            t.optionB,
+            t.optionC,
+            t.optionD,
+            t.answer,
+            t.score,
+            t.type
+        FROM db_examination.course c INNER JOIN db_examination.paper p
+                ON c.id = p.courseId
+            LEFT JOIN db_examination.test t
+                ON p.id = t.paperId
+        WHERE p.id = #{id}
+    </select>
 </mapper>

@@ -52,4 +52,10 @@ public class PaperController extends BaseController {
         paperService.remove(id);
         return "redirect:/paper/list";
     }
+
+    @RequestMapping("query/{id}")
+    private String query(@PathVariable int id) {
+        session.setAttribute("paper", paperService.search("paper.query", id));
+        return "redirect:/teacher/paper.jsp";
+    }
 }

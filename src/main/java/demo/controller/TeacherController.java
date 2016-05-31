@@ -29,7 +29,6 @@ public class TeacherController extends BaseController {
         teacher = teacherService.login(teacher);
         if (teacher != null) {
             session.setAttribute("teacher", teacher);
-            session.setAttribute("allCourses", courseService.list());
             session.setAttribute("courses", courseService.list("course.query", teacher.getId()));
             return "redirect:/teacher/teacher.jsp";
         } else {

@@ -127,7 +127,7 @@ DROP TABLE IF EXISTS db_examination.paper;
 CREATE TABLE db_examination.paper (
   id        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
-  time      INT(3)       NOT NULL
+  time      INT(3) NOT NULL
   COMMENT '考试时间：分钟',
   courseId  INT UNSIGNED COMMENT 'FK 课程ID',
   teacherId INT UNSIGNED COMMENT 'FK 教师ID'

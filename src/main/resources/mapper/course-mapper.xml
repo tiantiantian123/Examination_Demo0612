@@ -52,9 +52,7 @@
             p.teacherId
         FROM db_examination.course c LEFT OUTER JOIN db_examination.paper p
                 ON c.id = p.courseId
-            LEFT OUTER JOIN db_examination.teacher t
-                ON p.teacherId = t.id
-        WHERE t.id = #{id}
+        WHERE p.teacherId = #{id} OR p.teacherId IS NULL
         ORDER BY 1
     </select>
 </mapper>
