@@ -28,7 +28,7 @@
     </select>
     <br>
     <label for="time">考试时间</label>
-    <input id="time" type="text" placeholder="分钟"><br>
+    <input id="time" type="text" name="time" placeholder="分钟"><br>
     <input type="submit" value="添加试卷">
 </form>
 </body>
