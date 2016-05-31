@@ -209,7 +209,4 @@ SELECT *
 FROM db_examination.paper;
 
 SELECT *
-FROM db_examination.type;
-
-SELECT *
 FROM db_examination.test;
