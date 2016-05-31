@@ -18,6 +18,11 @@
                 } else {
                     $('#question_hint').hide();
                 }
+                if ($(this).val() == 'b') {
+                    $('#answers').hide();
+                } else {
+                    $('#answers').show();
+                }
 
             });
             var table = $('table');
@@ -25,6 +30,32 @@
                 table.toggleClass('fix');
                 $(this).text(table.css('table-layout') == 'fixed' ? '表格展开' : '表格收起');
             });
+            $('button.preview').click(function () {
+                table.toggle();
+                $('div.preview').toggle();
+                $(this).text(table.css('display') == 'none' ? '隐藏预览' : '显示预览');
+            });
+
+            $("<p>选择题</p>").addClass('type').insertBefore($('.x:first'));
+            $("<p>填空题</p>").addClass('type').insertBefore($('.t:first'));
+            $("<p>简答题</p>").addClass('type').insertBefore($('.j:first'));
+            $("<p>编程题</p>").addClass('type').insertBefore($('.b:first'));
+
+            $('.t').html($('.t').text().replace('###', '<input>'));
+
+            $.each($('.x'), function (index) {
+                $(this).prepend(index + 1 + '.');
+            })
+            $.each($('.t'), function (index) {
+                $(this).prepend(index + 1 + '.');
+            })
+            $.each($('.j'), function (index) {
+                $(this).prepend(index + 1 + '.');
+            })
+            $.each($('.b'), function (index) {
+                $(this).prepend(index + 1 + '.');
+            })
+
         });
     </script>
 </head>
@@ -34,8 +65,8 @@
 </c:if>
 <h1>试题管理</h1>
 当前教师：${sessionScope.teacher.username}
-<p class="center">${sessionScope.paper.course.title}考试 试卷</p>
-<p class="center">考试时间：${sessionScope.paper.time} 分钟</p>
+<p class="title">${sessionScope.paper.course.title}考试 试卷</p>
+<p class="time">考试时间：<span class="red">${sessionScope.paper.time}</span> 分钟</p>
 <hr>
 <table class="fix" border="1">
     <tr>
@@ -50,7 +81,8 @@
         <th>分数</th>
         <th colspan="2">操作</th>
     </tr>
-    <c:set var="x"/><c:set var="t"/><c:set var="j"/><c:set var="b"/><c:set var="score"/>
+    <c:set var="x" value="0"/><c:set var="t" value="0"/><c:set var="j" value="0"/><c:set var="b" value="0"/><c:set
+        var="score" value="0"/>
     <c:forEach var="test" items="${sessionScope.paper.tests}" varStatus="vs">
         <c:if test="${test.type eq 'x'}"><c:set var="x" value="${x + 1}"/></c:if>
         <c:if test="${test.type eq 't'}"><c:set var="t" value="${t + 1}"/></c:if>
@@ -67,37 +99,49 @@
             <td>${test.optionD}</td>
             <td>${test.answer}</td>
             <td>${test.score}</td>
-            <td><a href="">编辑</a></td>
+            <td><a href="${ctx}/test/search/${test.id}">编辑</a></td>
             <td><a href="">删除</a></td>
         </tr>
     </c:forEach>
     <tr>
-        <td>统计</td>
-        <td>题型统计</td>
-        <td colspan="5">
-            选择题${x}；
-            填空题${t}；
-            简答题${j}；
-            编程题${b}
-        </td>
-        <td>总分</td>
-        <td>${score}</td>
-        <td colspan="2"></td>
+        <th>题型统计</th>
+        <th colspan="2">
+            选择题<span class="red">${x}</span>
+            填空题<span class="red">${t}</span>
+            简答题<span class="red">${j}</span>
+            编程题<span class="red">${b}</span>
+        </th>
+        <th colspan="4"></th>
+        <th>总分</th>
+        <th><span class="red">${score}</span></th>
+        <th colspan="2"></th>
     </tr>
 </table>
 <div class="preview">
     <c:forEach var="test" items="${sessionScope.paper.tests}">
         <c:if test="${test.type eq 'x'}">
-            <p>${test.question}</p>
-            <p>A: ${test.optionA} <input type="radio" name=""></p>
-            <p>B: ${test.optionB} <input type="radio" name=""></p>
-            <p>C: ${test.optionC} <input type="radio" name=""></p>
-            <p>D: ${test.optionD} <input type="radio" name=""></p>
+            <p class="x">${test.question} (${test.score}分)</p>
+            <p class="option">A. ${test.optionA} <input type="radio" name=""></p>
+            <p class="option">B. ${test.optionB} <input type="radio" name=""></p>
+            <p class="option">C. ${test.optionC} <input type="radio" name=""></p>
+            <p class="option">D. ${test.optionD} <input type="radio" name=""></p>
+        </c:if>
+        <c:if test="${test.type eq 't'}">
+            <p class="t">${test.question} (${test.score}分)</p>
+        </c:if>
+        <c:if test="${test.type eq 'j'}">
+            <p class="j">${test.question} (${test.score}分)</p>
+            <textarea name=""></textarea>
+        </c:if>
+        <c:if test="${test.type eq 'b'}">
+            <p class="b">${test.question} (${test.score}分)</p>
+            <label for="" class="red">上传程序文件</label>
+            <input type="file" name="" id="">
         </c:if>
     </c:forEach>
 </div>
 <button id="show">表格展开</button>
-<button class="preview">试卷预览</button>
+<button class="preview">显示预览</button>
 <hr>
 <form action="${ctx}/test/create" method="post">
     <label for="type">题型</label>
@@ -106,9 +150,12 @@
         <option value="t">填空题</option>
         <option value="j">简答题</option>
         <option value="b">编程题</option>
-    </select><br>
+    </select>
+    <label for="score">分数</label>
+    <input id="score" type="text" name="score"><br>
     <label for="question">题目</label>
-    <textarea id="question" name="question"></textarea><span id="question_hint">使用 ### 来表示填空位</span><br>
+    <span id="question_hint">使用 ### 来表示填空位</span>
+    <textarea id="question" name="question"></textarea><br>
     <div id="options">
         <label for="optionA">选项A</label>
         <input id="optionA" type="text" name="optionA"><br>
@@ -119,10 +166,10 @@
         <label for="optionD">选项D</label>
         <input id="optionD" type="text" name="optionD"><br>
     </div>
-    <label for="answer">答案</label>
-    <textarea id="answer" name="answer"></textarea><br>
-    <label for="score">分数</label>
-    <input id="score" type="text" name="score"><br>
+    <div id="answers">
+        <label for="answer">答案</label>
+        <textarea id="answer" name="answer"></textarea><br>
+    </div>
     <input type="submit" value="添加试题">
 </form>
 </body>

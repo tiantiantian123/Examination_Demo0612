@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS db_examination.test;
 CREATE TABLE db_examination.test (
   id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
-  question VARCHAR(255)  NOT NULL
+  question VARCHAR(2048)  NOT NULL
   COMMENT '问题',
   optionA  VARCHAR(255) COMMENT 'A选项',
   optionB  VARCHAR(255) COMMENT 'B选项',

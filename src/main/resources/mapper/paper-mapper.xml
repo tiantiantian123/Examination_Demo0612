@@ -75,5 +75,6 @@
             LEFT JOIN db_examination.test t
                 ON p.id = t.paperId
         WHERE p.id = #{id}
+        ORDER BY t.type DESC
     </select>
 </mapper>

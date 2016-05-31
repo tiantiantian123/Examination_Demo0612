@@ -38,13 +38,17 @@ public class TestController extends BaseController {
     @RequestMapping("search/{id}")
     private String search(@PathVariable("id") Integer id) {
         session.setAttribute("test", testService.search(id));
-        return "redirect:/test/edit.jsp";
-    }
+        return "redirect:/teacher/edit_test.jsp";
+}
 
     @RequestMapping("modify")
     private String modify(Test test) {
+        Paper paper = (Paper) session.getAttribute("paper");
+        int paperId = paper.getId();
+        test.setPaperId(paperId);
         testService.modify(test);
-        return "redirect:list";
+        session.setAttribute("paper", paperService.search("paper.query", paperId));
+        return "redirect:/teacher/paper.jsp";
     }
 
     @RequestMapping("remove/{id}")
