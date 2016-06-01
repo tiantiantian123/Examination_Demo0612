@@ -7,8 +7,6 @@
     <script src="${ctx}/static/js/jquery-1.12.3.min.js"></script>
     <script>
         $(function () {
-            $('div.preview').show();
-
             $("<p>选择题</p>").addClass('type').insertBefore($('.x:first'));
             $("<p>填空题</p>").addClass('type').insertBefore($('.t:first'));
             $("<p>简答题</p>").addClass('type').insertBefore($('.j:first'));
@@ -39,8 +37,7 @@
 当前学生：${sessionScope.student.username}
 <p class="title">${sessionScope.paper.course.title}考试 试卷</p>
 <p class="time">考试时间：<span class="red">${sessionScope.paper.time}</span> 分钟</p>
-<hr>
-<div class="preview">
+<div class="paper">
     <c:forEach var="test" items="${sessionScope.paper.tests}">
         <c:if test="${test.type eq 'x'}">
             <p class="x">${test.question} (${test.score}分)</p>

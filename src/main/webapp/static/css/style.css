@@ -21,15 +21,19 @@ body {
     font-weight: bolder;
 }
 
-div.preview {
-    background: #ffffe0;
+div.preview,
+div.paper {
     width: 980px;
     padding: 10px;
     margin: 20px auto;
-    display: none;
     border: 1px solid #333;
     -moz-box-shadow: 10px 10px 5px #888;
     box-shadow: 10px 10px 3px #888;
+}
+
+div.preview {
+    display: none;
+    background: #ffffe0;
 }
 
 p.type {
@@ -42,8 +46,16 @@ p.type {
 p.title,
 p.time {
     text-align: center;
+}
+
+p.title {
     font-size: 26px;
     font-weight: bolder;
+}
+
+p.time {
+    font-size: 16px;
+    margin: 10px 0 20px;
 }
 
 p.x,
