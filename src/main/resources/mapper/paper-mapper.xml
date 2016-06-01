@@ -75,7 +75,7 @@
             LEFT JOIN db_examination.test t
                 ON p.id = t.paperId
         WHERE p.id = #{id}
-        ORDER BY t.type DESC
+        ORDER BY t.type DESC, t.id
     </select>
     <resultMap id="papers" type="paper">
         <id property="id" column="id"/>
