@@ -25,11 +25,11 @@ div.preview {
     background: #ffffe0;
     width: 980px;
     padding: 10px;
-    margin: auto;
+    margin: 20px auto;
     display: none;
-    border: 1px solid #ddd;
+    border: 1px solid #333;
     -moz-box-shadow: 10px 10px 5px #888;
-    box-shadow: 10px 10px 5px #888;
+    box-shadow: 10px 10px 3px #888;
 }
 
 p.type {

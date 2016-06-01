@@ -2,6 +2,7 @@ package demo.controller;
 
 import demo.dao.StudentDao;
 import demo.model.Student;
+import demo.service.ClassPaperService;
 import demo.service.StudentService;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -36,6 +37,9 @@ public class StudentController extends BaseController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private ClassPaperService classPaperService;
+
     @RequestMapping("/create")
     private void create(Student student) throws IOException {
         student.setLastIp(request.getRemoteAddr());
@@ -50,7 +54,8 @@ public class StudentController extends BaseController {
     private String login(Student student) {
         student = studentService.login(request, student);
         if (student != null) {
-            request.getSession().setAttribute("student", student);
+            session.setAttribute("student", student);
+            session.setAttribute("classPapers", classPaperService.list("student_query", null));
             return "redirect:/student/index.jsp";
         } else {
             request.setAttribute("message", "invalid email or password!");

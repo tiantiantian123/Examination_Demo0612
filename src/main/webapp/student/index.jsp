@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/common/inc.jsp"%>
+<%@ include file="/common/inc.jsp" %>
 <html>
 <head>
     <title>学生首页 - 在线考试</title>
@@ -11,6 +11,13 @@
 <h1>学生首页</h1>
 当前学生：${sessionScope.student.username}
 <hr>
-<a href="/student/edit_profile.jsp">编辑个人信息</a>
+<a href="${ctx}/student/edit_profile.jsp">编辑个人信息</a>
+<hr>
+<dl>
+    <c:forEach var="classPaper" items="${sessionScope.classPapers}">
+        <dt><a href="${ctx}/paper/studentQuery/${classPaper.paper.id}">${classPaper.paper.course.title}考试</a></dt>
+        <dd>时间：${classPaper.time}</dd>
+    </c:forEach>
+</dl>
 </body>
 </html>

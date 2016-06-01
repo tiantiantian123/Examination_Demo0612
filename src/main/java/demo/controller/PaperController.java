@@ -70,4 +70,10 @@ public class PaperController extends BaseController {
         session.setAttribute("paper", paperService.search("paper.query", id));
         return "redirect:/teacher/paper.jsp";
     }
+
+    @RequestMapping("studentQuery/{id}")
+    private String studentQuery(@PathVariable int id) {
+        session.setAttribute("paper", paperService.search("paper.query", id));
+        return "redirect:/student/examination.jsp";
+    }
 }

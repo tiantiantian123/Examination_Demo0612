@@ -64,4 +64,25 @@
                 ON c1.id = cp.classId AND p.id = cp.paperId AND c2.id = p.courseId
         ORDER BY cp.time;
     </select>
+    <resultMap id="student_query_map" type="classpaper">
+        <result property="time" column="time"/>
+        <association property="paper" javaType="paper">
+            <id property="id" column="id"/>
+            <association property="course" javaType="course">
+                <result property="title" column="title"/>
+            </association>
+        </association>
+    </resultMap>
+    <select id="student_query" resultMap="student_query_map">
+        SELECT
+        p.id,
+        c2.title,
+        cp.time
+        FROM db_examination.student s INNER JOIN db_examination.class c1
+        INNER JOIN db_examination.class_paper cp
+        INNER JOIN db_examination.paper p
+        INNER JOIN db_examination.course c2
+        ON s.classId = c1.id AND c1.id = cp.classId AND cp.paperId = p.id AND p.courseId = c2.id
+        WHERE now() > cp.time <!-- AND now() < date_add(cp.time, INTERVAL p.time MINUTE);-->
+    </select>
 </mapper>
