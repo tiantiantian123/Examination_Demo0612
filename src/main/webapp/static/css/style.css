@@ -21,6 +21,10 @@ body {
     font-weight: bolder;
 }
 
+.center {
+    text-align: center;
+}
+
 div.preview,
 div.paper {
     width: 980px;
