@@ -121,10 +121,10 @@
     <c:forEach var="test" items="${sessionScope.paper.tests}">
         <c:if test="${test.type eq 'x'}">
             <p class="x">${test.question} (${test.score}分)</p>
-            <p class="option">A. ${test.optionA} <input type="radio" name=""></p>
-            <p class="option">B. ${test.optionB} <input type="radio" name=""></p>
-            <p class="option">C. ${test.optionC} <input type="radio" name=""></p>
-            <p class="option">D. ${test.optionD} <input type="radio" name=""></p>
+            <p class="option"><input type="radio" name="${test.id}"> A. ${test.optionA}</p>
+            <p class="option"><input type="radio" name="${test.id}"> B. ${test.optionB}</p>
+            <p class="option"><input type="radio" name="${test.id}"> C. ${test.optionC}</p>
+            <p class="option"><input type="radio" name="${test.id}"> D. ${test.optionD}</p>
         </c:if>
         <c:if test="${test.type eq 't'}">
             <p class="t">${test.question} (${test.score}分)</p>
