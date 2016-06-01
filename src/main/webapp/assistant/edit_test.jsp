@@ -15,7 +15,7 @@
     </c:forEach>
     </select><br>
     <label for="time">考试时间</label>
-    <input id="time" name="time" value="2016-06-01 13:00:00"><br>
+    <input id="time"  type="datetime-local" name="time"><br>
     <input type="submit" value="添加">
 </form>
 </body>
