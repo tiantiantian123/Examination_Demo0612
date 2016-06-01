@@ -20,6 +20,7 @@ public class ClassPaperController extends BaseController {
         Assistant assistant = (Assistant) session.getAttribute("assistant");
         classPaper.setAssistantId(assistant.getId());
         classpaperService.create(classPaper);
+        session.setAttribute("classPapers", classpaperService.list("classpaper.query", null));
         return "redirect:/assistant/edit_test.jsp";
     }
 

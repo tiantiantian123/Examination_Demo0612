@@ -242,3 +242,6 @@ FROM db_examination.test;
 
 SELECT *
 FROM db_examination.class_paper;
+
+
+SELECT p.id, p.time, c.title, t.id AS id_test, t.question, t.optionA, t.optionB, t.optionC, t.optionD, t.answer, t.score, t.type FROM db_examination.course c INNER JOIN db_examination.paper p ON c.id = p.courseId LEFT JOIN db_examination.test t ON p.id = t.paperId WHERE p.id = ? ORDER BY t.type DESC

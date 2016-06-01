@@ -77,4 +77,20 @@
         WHERE p.id = #{id}
         ORDER BY t.type DESC
     </select>
+    <resultMap id="papers" type="paper">
+        <id property="id" column="id"/>
+        <result property="time" column="time"/>
+        <association property="course" javaType="course">
+            <result property="title" column="title"/>
+        </association>
+    </resultMap>
+    <select id="papers" resultMap="papers">
+        SELECT
+            p.id,
+            p.time,
+            c.title
+        FROM db_examination.course c INNER JOIN db_examination.paper p
+                ON c.id = p.courseId
+        ORDER BY 1
+    </select>
 </mapper>

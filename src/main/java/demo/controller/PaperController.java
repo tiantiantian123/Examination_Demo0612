@@ -2,6 +2,7 @@ package demo.controller;
 
 import demo.model.Paper;
 import demo.model.Teacher;
+import demo.service.ClassPaperService;
 import demo.service.CourseService;
 import demo.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class PaperController extends BaseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private ClassPaperService classPaperService;
 
     @RequestMapping("create")
     private String create(Paper paper) {
@@ -38,7 +42,8 @@ public class PaperController extends BaseController {
     @RequestMapping("list/{id}")
     private String list(@PathVariable int id) {
         session.setAttribute("classId", id);
-        session.setAttribute("papers", paperService.list());
+        session.setAttribute("papers", paperService.list("paper.papers", null));
+        session.setAttribute("classPapers", classPaperService.list("classpaper.query", null));
         return "redirect:/assistant/edit_test.jsp";
     }
 

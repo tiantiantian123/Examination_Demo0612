@@ -17,9 +17,9 @@
     <update id="modify">
         UPDATE db_examination.class_paper
         SET
-            classId = #{classId}, 
-            paperId = #{paperId}, 
-            time = #{time}, 
+            classId     = #{classId},
+            paperId     = #{paperId},
+            time        = #{time},
             assistantId = #{assistantId}
         WHERE id = #{id}
     </update>
@@ -29,16 +29,39 @@
     </delete>
     <insert id="create" parameterType="classpaper" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO db_examination.class_paper (
-            classId, 
-            paperId, 
-            time, 
+            classId,
+            paperId,
+            time,
             assistantId
         )
         VALUES (
-            #{classId}, 
-            #{paperId}, 
-            #{time}, 
+            #{classId},
+            #{paperId},
+            #{time},
             #{assistantId}
         );
     </insert>
+    <resultMap id="query_map" type="classpaper">
+        <id property="id" column="id"/>
+        <result property="time" column="time"/>
+        <association property="clazz" javaType="class">
+            <result property="title" column="title"/>
+        </association>
+        <association property="paper" javaType="paper">
+            <association property="course" javaType="course">
+                <result property="title" column="course_title"/>
+            </association>
+        </association>
+    </resultMap>
+    <select id="query" resultMap="query_map">
+        SELECT
+            c1.title,
+            c2.title AS course_title,
+            cp.time
+        FROM db_examination.class c1 INNER JOIN db_examination.paper p
+            INNER JOIN db_examination.class_paper cp
+            INNER JOIN db_examination.course c2
+                ON c1.id = cp.classId AND p.id = cp.paperId AND c2.id = p.courseId
+        ORDER BY cp.time;
+    </select>
 </mapper>
