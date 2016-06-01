@@ -242,14 +242,3 @@ FROM db_examination.test;
 
 SELECT *
 FROM db_examination.class_paper;
-
-SELECT
-  p.id,
-  c2.title,
-  cp.time
-FROM db_examination.student s INNER JOIN db_examination.class c1
-  INNER JOIN db_examination.class_paper cp
-  INNER JOIN db_examination.paper p
-  INNER JOIN db_examination.course c2
-    ON s.classId = c1.id AND c1.id = cp.classId AND cp.paperId = p.id AND p.courseId = c2.id
-WHERE now() > cp.time AND now() < date_add(cp.time, INTERVAL p.time MINUTE);
