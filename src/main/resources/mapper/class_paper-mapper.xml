@@ -84,5 +84,9 @@
             INNER JOIN db_examination.course c2
                 ON s.classId = c1.id AND c1.id = cp.classId AND cp.paperId = p.id AND p.courseId = c2.id
         WHERE now() > cp.time AND date_add(cp.time, INTERVAL p.time MINUTE) > now()
+        /*
+            <![CDATA[ < ]]> or &lt;
+            <![CDATA[ & ]]> or &amp;
+        */
     </select>
 </mapper>
