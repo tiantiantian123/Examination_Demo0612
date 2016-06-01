@@ -1,4 +1,4 @@
-package demo.ioc;
+package demo.test.ioc;
 
 /**
  * Created at 221

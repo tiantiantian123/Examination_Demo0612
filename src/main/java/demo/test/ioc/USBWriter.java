@@ -1,4 +1,4 @@
-package demo.ioc;
+package demo.test.ioc;
 
 import org.springframework.stereotype.Component;
 
@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
  * 16-5-23 下午4:40.
  */
 @Component
-public class FloppyWriter implements DeviceWriter {
+public class USBWriter implements DeviceWriter {
     @Override
     public void writeToDevice() {
-        System.out.println("write to floppy...");
+        System.out.println("write to USB...");
     }
 }

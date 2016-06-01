@@ -1,4 +1,4 @@
-package demo.ioc;
+package demo.test.ioc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

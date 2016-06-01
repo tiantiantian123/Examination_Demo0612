@@ -10,7 +10,7 @@
 
     <!--<context:annotation-config />-->
 
-    <context:component-scan base-package="demo.ioc"/>
+    <context:component-scan base-package="demo.test.ioc"/>
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="classpath:template"/>
