@@ -10,6 +10,7 @@
 </c:if>
 <h1>学生首页</h1>
 当前学生：${sessionScope.student.username}
+<a href="${ctx}/system/logout">注销</a>
 <hr>
 <a href="${ctx}/student/edit_profile.jsp">编辑个人信息</a>
 <hr>

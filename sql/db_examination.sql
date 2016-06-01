@@ -242,3 +242,5 @@ FROM db_examination.test;
 
 SELECT *
 FROM db_examination.class_paper;
+
+UPDATE db_examination.class_paper set time = '2016-06-01 18:00:00' where id = 1;
