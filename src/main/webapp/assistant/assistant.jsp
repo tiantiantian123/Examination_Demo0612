@@ -40,7 +40,7 @@
         <th>班级名称</th>
         <th>开班日期</th>
         <th>结业日期</th>
-        <th colspan="2">操作</th>
+        <th colspan="3">操作</th>
     </tr>
     <c:forEach var="aClass" items="${sessionScope.classes}" varStatus="vs">
         <tr>
@@ -50,6 +50,7 @@
             <td>${aClass.finishDate}</td>
             <td><a href="${ctx}/class/search/${aClass.id}">编辑</a></td>
             <td><a class="remove" href="${ctx}/class/remove/${aClass.id}">删除</a></td>
+            <td><a href="${ctx}/paper/list/${aClass.id}">维护考试信息</a></td>
         </tr>
     </c:forEach>
 </table>

@@ -35,6 +35,13 @@ public class PaperController extends BaseController {
         return "redirect:/paper/list.jsp";
     }
 
+    @RequestMapping("list/{id}")
+    private String list(@PathVariable int id) {
+        session.setAttribute("classId", id);
+        session.setAttribute("papers", paperService.list());
+        return "redirect:/assistant/edit_test.jsp";
+    }
+
     @RequestMapping("search/{id}")
     private String search(@PathVariable("id") Integer id) {
         session.setAttribute("paper", paperService.search(id));

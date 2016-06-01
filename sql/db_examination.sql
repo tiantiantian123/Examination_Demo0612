@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS db_examination.test;
 CREATE TABLE db_examination.test (
   id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
-  question VARCHAR(2048)  NOT NULL
+  question VARCHAR(2048) NOT NULL
   COMMENT '问题',
   optionA  VARCHAR(255) COMMENT 'A选项',
   optionB  VARCHAR(255) COMMENT 'B选项',
@@ -154,6 +154,17 @@ CREATE TABLE db_examination.test (
   paperId  INT UNSIGNED COMMENT 'FK 试卷ID'
 )
   COMMENT '试题表';
+
+-- table class_paper
+DROP TABLE IF EXISTS db_examination.class_paper;
+CREATE TABLE db_examination.class_paper (
+  id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  classId     INT UNSIGNED COMMENT 'FK 班级ID',
+  paperId     INT UNSIGNED COMMENT 'FK 试卷ID',
+  time        DATETIME COMMENT '考试时间',
+  assistantId INT UNSIGNED COMMENT 'FK 教务ID'
+);
 
 -- ----------------------- INDEX ------------------------
 CREATE INDEX ind_ip ON db_examination.ip (start, end);
@@ -183,6 +194,24 @@ ALTER TABLE db_examination.test
 FOREIGN KEY (paperId)
 REFERENCES db_examination.paper (id);
 
+ALTER TABLE db_examination.class_paper
+  ADD CONSTRAINT
+  fk_class_paper_classId
+FOREIGN KEY (classId)
+REFERENCES db_examination.class (id);
+
+ALTER TABLE db_examination.class_paper
+  ADD CONSTRAINT
+  fk_class_paper_paperId
+FOREIGN KEY (paperId)
+REFERENCES db_examination.paper (id);
+
+ALTER TABLE db_examination.class_paper
+  ADD CONSTRAINT
+  fk_class_paper_assistantId
+FOREIGN KEY (assistantId)
+REFERENCES db_examination.assistant (id);
+
 -- ----------------------- SELECTION ------------------------
 SELECT *
 FROM db_examination.admin;
@@ -210,3 +239,6 @@ FROM db_examination.paper;
 
 SELECT *
 FROM db_examination.test;
+
+SELECT *
+FROM db_examination.class_paper;
