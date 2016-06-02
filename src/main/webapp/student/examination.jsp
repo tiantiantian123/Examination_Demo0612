@@ -37,7 +37,7 @@
 当前学生：${sessionScope.student.username}
 <p class="title">${sessionScope.paper.course.title}考试 试卷</p>
 <p class="time">考试时间：<span class="red">${sessionScope.paper.time}</span> 分钟</p>
-<form action="examination.jsp" method="get">
+<form action="${ctx}/studenttest/create" method="post">
     <div class="paper">
         <c:forEach var="test" items="${sessionScope.paper.tests}">
             <c:if test="${test.type eq 'x'}">

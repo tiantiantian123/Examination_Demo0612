@@ -164,7 +164,19 @@ CREATE TABLE db_examination.class_paper (
   paperId     INT UNSIGNED COMMENT 'FK 试卷ID',
   time        DATETIME COMMENT '考试时间',
   assistantId INT UNSIGNED COMMENT 'FK 教务ID'
-);
+)
+  COMMENT '班级-试卷关联表';
+
+-- table student_test
+DROP TABLE IF EXISTS db_examination.student_test;
+CREATE TABLE db_examination.student_test (
+  id        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  studentId INT UNSIGNED COMMENT 'FK 学生ID',
+  testId    INT UNSIGNED COMMENT 'FK 试题ID',
+  answer    VARCHAR(2048) COMMENT '答案'
+)
+  COMMENT '学生-试题关联表';
 
 -- ----------------------- INDEX ------------------------
 CREATE INDEX ind_ip ON db_examination.ip (start, end);
@@ -212,6 +224,18 @@ ALTER TABLE db_examination.class_paper
 FOREIGN KEY (assistantId)
 REFERENCES db_examination.assistant (id);
 
+ALTER TABLE db_examination.student_test
+  ADD CONSTRAINT
+  fk_student_test_studentId
+FOREIGN KEY (studentId)
+REFERENCES db_examination.student (id);
+
+ALTER TABLE db_examination.student_test
+  ADD CONSTRAINT
+  fk_student_test_testId
+FOREIGN KEY (testId)
+REFERENCES db_examination.test (id);
+
 -- ----------------------- SELECTION ------------------------
 SELECT *
 FROM db_examination.admin;
@@ -243,4 +267,9 @@ FROM db_examination.test;
 SELECT *
 FROM db_examination.class_paper;
 
-UPDATE db_examination.class_paper set time = '2016-06-01 18:00:00' where id = 1;
+SELECT *
+FROM db_examination.student_test;
+
+UPDATE db_examination.class_paper
+SET time = '2016-06-02 8:30:00'
+WHERE id = 1;
