@@ -297,15 +297,25 @@ SELECT *
 FROM db_examination.student_test;
 
 UPDATE db_examination.class_paper
-SET time = '2016-06-02 8:30:00'
+SET time = '2016-06-02 23:00:00'
 WHERE id = 1;
 
-SELECT *
+SELECT
+  s.username,
+  c1.title,
+  c2.title,
+  g.grade
 FROM db_examination.student s INNER JOIN db_examination.course c1
   INNER JOIN db_examination.class c2
   LEFT OUTER JOIN db_examination.grade g
-    ON s.id = g.studentId AND c1.id = g.courseId AND s.classId = c2.id
+    ON
+      s.id = g.studentId
+      AND s.classId = c2.id
+      AND c1.id = g.courseId
 WHERE c2.id = #{classId} AND c1.id = #{courseId};
 
 SELECT *
-FROM db_examination.class_paper;
+FROM db_examination.student;
+
+SELECT *
+FROM db_examination.grade;
