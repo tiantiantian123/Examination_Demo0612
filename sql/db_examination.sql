@@ -158,7 +158,7 @@ CREATE TABLE db_examination.test (
 -- table class_paper
 DROP TABLE IF EXISTS db_examination.class_paper;
 CREATE TABLE db_examination.class_paper (
-  id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  id          INT UNSIGNED    AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
   classId     INT UNSIGNED COMMENT 'FK 班级ID',
   paperId     INT UNSIGNED COMMENT 'FK 试卷ID',
@@ -179,6 +179,18 @@ CREATE TABLE db_examination.student_test (
   answer    VARCHAR(2048) COMMENT '答案'
 )
   COMMENT '学生-试题关联表';
+
+-- table grade
+DROP TABLE IF EXISTS db_examination.grade;
+CREATE TABLE db_examination.grade (
+  id        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  COMMENT 'PK',
+  studentId INT UNSIGNED COMMENT 'FK 学生ID',
+  courseId  INT UNSIGNED COMMENT 'FK 课程ID',
+  grade     INT(3) NOT NULL
+  COMMENT '学生成绩'
+)
+  COMMENT '学生成绩表';
 
 -- ----------------------- INDEX ------------------------
 CREATE INDEX ind_ip ON db_examination.ip (start, end);
@@ -238,6 +250,18 @@ ALTER TABLE db_examination.student_test
 FOREIGN KEY (testId)
 REFERENCES db_examination.test (id);
 
+ALTER TABLE db_examination.grade
+  ADD CONSTRAINT
+  fk_grade_studentId
+FOREIGN KEY (studentId)
+REFERENCES db_examination.student (id);
+
+ALTER TABLE db_examination.grade
+  ADD CONSTRAINT
+  fk_grade_courseId
+FOREIGN KEY (courseId)
+REFERENCES db_examination.course (id);
+
 -- ----------------------- SELECTION ------------------------
 SELECT *
 FROM db_examination.admin;
@@ -275,3 +299,13 @@ FROM db_examination.student_test;
 UPDATE db_examination.class_paper
 SET time = '2016-06-02 8:30:00'
 WHERE id = 1;
+
+SELECT *
+FROM db_examination.student s INNER JOIN db_examination.course c1
+  INNER JOIN db_examination.class c2
+  LEFT OUTER JOIN db_examination.grade g
+    ON s.id = g.studentId AND c1.id = g.courseId AND s.classId = c2.id
+WHERE c2.id = #{classId} AND c1.id = #{courseId};
+
+SELECT *
+FROM db_examination.class_paper;

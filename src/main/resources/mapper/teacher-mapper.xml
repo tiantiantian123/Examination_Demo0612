@@ -19,6 +19,7 @@
         <association property="paper" javaType="paper">
             <id property="id" column="id_paper"/>
             <association property="course" javaType="course">
+                <id property="id" column="id_course"/>
                 <result property="title" column="title_course"/>
             </association>
         </association>
@@ -28,6 +29,7 @@
             c1.id,
             c1.title,
             p.id,
+            c2.id AS id_course,
             c2.title AS title_course
         FROM db_examination.class_paper cp INNER JOIN db_examination.class c1
             INNER JOIN db_examination.paper p
@@ -35,4 +37,5 @@
                 ON cp.classId = c1.id AND cp.paperId = p.id AND p.courseId = c2.id
         WHERE status = 2 -- 考试完成
     </select>
+
 </mapper>
