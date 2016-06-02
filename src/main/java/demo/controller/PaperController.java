@@ -43,7 +43,7 @@ public class PaperController extends BaseController {
     private String list(@PathVariable int id) {
         session.setAttribute("classId", id);
         session.setAttribute("papers", paperService.list("paper.papers", null));
-        session.setAttribute("classPapers", classPaperService.list("classpaper.query", null));
+        session.setAttribute("classPapers", classPaperService.list("classpaper.queryByClassId", id));
         return "redirect:/assistant/edit_test.jsp";
     }
 

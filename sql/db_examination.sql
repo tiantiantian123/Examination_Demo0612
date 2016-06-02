@@ -163,6 +163,8 @@ CREATE TABLE db_examination.class_paper (
   classId     INT UNSIGNED COMMENT 'FK 班级ID',
   paperId     INT UNSIGNED COMMENT 'FK 试卷ID',
   time        DATETIME COMMENT '考试时间',
+  status      INT(1) NOT NULL DEFAULT 0
+  COMMENT '状态：0-未考试 1-考试中 2-考试完成 3-判分完成',
   assistantId INT UNSIGNED COMMENT 'FK 教务ID'
 )
   COMMENT '班级-试卷关联表';

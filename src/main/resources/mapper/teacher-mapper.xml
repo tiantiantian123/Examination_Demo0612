@@ -4,9 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teacher">
     <insert id="create" parameterType="teacher" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO db_examination.teacher VALUES(NULL, #{email}, #{username}, #{password})
+        INSERT INTO db_examination.teacher VALUES (NULL, #{email}, #{username}, #{password})
     </insert>
     <select id="login" parameterType="String" resultType="teacher">
-        SELECT * FROM db_examination.teacher WHERE email = #{email}
+        SELECT *
+        FROM db_examination.teacher
+        WHERE email = #{email}
+    </select>
+    <resultMap id="queryClassPaper_map" type="classpaper">
+        <association property="clazz" javaType="class">
+            <id property="id" column="id"/>
+            <result property="title" column="title"/>
+        </association>
+        <association property="paper" javaType="paper">
+            <id property="id" column="id_paper"/>
+            <association property="course" javaType="course">
+                <result property="title" column="title_course"/>
+            </association>
+        </association>
+    </resultMap>
+    <select id="queryClassPaper" resultMap="queryClassPaper_map">
+        SELECT
+            c1.id,
+            c1.title,
+            p.id,
+            c2.title AS title_course
+        FROM db_examination.class_paper cp INNER JOIN db_examination.class c1
+            INNER JOIN db_examination.paper p
+            INNER JOIN db_examination.course c2
+                ON cp.classId = c1.id AND cp.paperId = p.id AND p.courseId = c2.id
+        WHERE status = 2 -- 考试完成
     </select>
 </mapper>

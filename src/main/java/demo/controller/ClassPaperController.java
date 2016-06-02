@@ -3,6 +3,7 @@ package demo.controller;
 import demo.model.Assistant;
 import demo.model.ClassPaper;
 import demo.service.ClassPaperService;
+import demo.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClassPaperController extends BaseController {
 
     @Autowired
-    private ClassPaperService classpaperService;
+    private ClassPaperService classpaperService; // TODO: 16-6-2 controller.ftl
+
+    @Autowired
+    private PaperService paperService;
 
     @RequestMapping("create")
     private String create(ClassPaper classPaper) {
@@ -33,13 +37,15 @@ public class ClassPaperController extends BaseController {
     @RequestMapping("search/{id}")
     private String search(@PathVariable("id") Integer id) {
         session.setAttribute("classpaper", classpaperService.search(id));
-        return "redirect:/classpaper/edit.jsp";
+        return "redirect:/assistant/edit_class_paper.jsp";
     }
 
     @RequestMapping("modify")
     private String modify(ClassPaper classpaper) {
         classpaperService.modify(classpaper);
-        return "redirect:list";
+        session.setAttribute("papers", paperService.list("paper.papers", null));
+        session.setAttribute("classPapers", classpaperService.list("classpaper.queryByClassId", classpaper.getClassId()));
+        return "redirect:/assistant/edit_test.jsp";
     }
 
     @RequestMapping("remove/{id}")

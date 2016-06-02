@@ -20,6 +20,7 @@
             classId     = #{classId},
             paperId     = #{paperId},
             time        = #{time},
+            status      = #{status},
             assistantId = #{assistantId}
         WHERE id = #{id}
     </update>
@@ -44,6 +45,7 @@
     <resultMap id="query_map" type="classpaper">
         <id property="id" column="id"/>
         <result property="time" column="time"/>
+        <result property="status" column="status"/>
         <association property="clazz" javaType="class">
             <result property="title" column="title"/>
         </association>
@@ -53,15 +55,18 @@
             </association>
         </association>
     </resultMap>
-    <select id="query" resultMap="query_map">
+    <select id="queryByClassId" resultMap="query_map">
         SELECT
             c1.title,
             c2.title AS course_title,
-            cp.time
+            cp.id,
+            cp.time,
+            cp.status
         FROM db_examination.class c1 INNER JOIN db_examination.paper p
             INNER JOIN db_examination.class_paper cp
             INNER JOIN db_examination.course c2
                 ON c1.id = cp.classId AND p.id = cp.paperId AND c2.id = p.courseId
+        WHERE c1.id = #{id}
         ORDER BY cp.time;
     </select>
     <resultMap id="student_query_map" type="classpaper">

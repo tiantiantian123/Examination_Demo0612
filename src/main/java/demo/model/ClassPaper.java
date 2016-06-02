@@ -11,6 +11,7 @@ public class ClassPaper extends BaseModel {
     private int classId;
     private int paperId;
     private String time;
+    private int status;
     private int assistantId;
     private Class clazz;
     private Paper paper;

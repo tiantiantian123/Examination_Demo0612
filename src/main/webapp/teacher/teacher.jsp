@@ -31,5 +31,11 @@
     <input id="time" type="text" name="time" placeholder="分钟"><br>
     <input type="submit" value="添加试卷">
 </form>
+<hr>
+<ul>
+    <c:forEach var="classPaper" items="${sessionScope.classPapers}">
+        <li>${classPaper.clazz.title} ${classPaper.paper.course.title} 考试完成 <a href="">前往判分</a></li>
+    </c:forEach>
+</ul>
 </body>
 </html>

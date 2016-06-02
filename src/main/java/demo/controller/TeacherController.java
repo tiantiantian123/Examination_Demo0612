@@ -30,6 +30,7 @@ public class TeacherController extends BaseController {
         if (teacher != null) {
             session.setAttribute("teacher", teacher);
             session.setAttribute("courses", courseService.list("course.query", teacher.getId()));
+            session.setAttribute("classPapers", teacherService.list("teacher.queryClassPaper", null));
             return "redirect:/teacher/teacher.jsp";
         } else {
             request.setAttribute("message", "用户名或密码错误");
