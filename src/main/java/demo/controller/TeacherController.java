@@ -6,6 +6,7 @@ import demo.service.TeacherService;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
@@ -40,12 +41,23 @@ public class TeacherController extends BaseController {
         }
     }
 
-    @RequestMapping("studentCourse")
-    private String studentCourse() {
+    @RequestMapping("studentCourse/{paperId}/{classId}/{courseId}")
+    private String studentCourse(@PathVariable int paperId, @PathVariable int classId, @PathVariable int courseId) {
+        session.setAttribute("paperId", paperId);
         Map<String, Integer> map = new HashMap<>();
-        map.put("classId", 1);
-        map.put("courseId", 2);
+        map.put("classId", classId);
+        map.put("courseId", courseId);
         session.setAttribute("studentCourses", teacherService.list("teacher.student_course", map));
         return "redirect:/teacher/student_course.jsp";
+    }
+
+    @RequestMapping("studentTest/{paperId}/{studentId}")
+    private String studentTest(@PathVariable int paperId, @PathVariable int studentId) {
+        session.setAttribute("tests", teacherService.list("teacher.tests", paperId));
+        Map<String, Integer> map = new HashMap<>();
+        map.put("studentId", studentId);
+        map.put("paperId", paperId);
+        session.setAttribute("studentTests", teacherService.list("teacher.student_test", map));
+        return "redirect:/teacher/judge.jsp";
     }
 }

@@ -34,7 +34,8 @@
 <hr>
 <ul>
     <c:forEach var="classPaper" items="${sessionScope.classPapers}">
-        <li>${classPaper.clazz.title} ${classPaper.paper.course.title} 考试完成 <a href="${ctx}/teacher/studentCourse">前往判分</a></li>
+        <li>${classPaper.clazz.title} ${classPaper.paper.course.title} 考试完成
+            <a href="${ctx}/teacher/studentCourse/${classPaper.paper.id}/${classPaper.clazz.id}/${classPaper.paper.course.id}">前往判分</a></li>
     </c:forEach>
 </ul>
 </body>

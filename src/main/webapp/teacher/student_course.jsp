@@ -30,7 +30,7 @@
             <td>${studentCourse.username}</td>
             <td>
                 <c:if test="${studentCourse.studentCourses[0].grade eq null}">
-                    <a href="">判卷</a>
+                    <a href="${ctx}/teacher/studentTest/${sessionScope.paperId}/${studentCourse.id}">判卷</a>
                 </c:if>
                 <c:if test="${studentCourse.studentCourses[0].grade ne null}">
                     ${studentCourse.studentCourses[0].grade}

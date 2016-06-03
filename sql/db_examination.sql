@@ -306,3 +306,20 @@ FROM db_examination.student s INNER JOIN db_examination.class c1
   LEFT JOIN db_examination.student_course sc
     ON s.id = sc.studentId AND c2.id = sc.courseId AND s.classId = c1.id
 WHERE c1.id = 1 AND c2.id = 2;
+
+SELECT
+  t.question,
+  t.answer
+FROM db_examination.paper p INNER JOIN db_examination.test t
+    ON p.id = t.paperId
+WHERE p.id = 1;
+
+SELECT
+  t.question,
+  st.answer
+FROM db_examination.test t LEFT JOIN db_examination.student_test st
+    ON t.id = st.testId AND st.studentId = 2
+WHERE t.paperId = 1;
+
+SELECT *
+FROM db_examination.student_test;

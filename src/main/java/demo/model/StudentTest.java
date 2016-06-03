@@ -15,4 +15,5 @@ public class StudentTest extends BaseModel {
     private int studentId;
     private int testId;
     private String answer;
+    private Test test;
 }

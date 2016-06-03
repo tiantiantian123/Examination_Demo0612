@@ -29,7 +29,7 @@ public class StudentTestController extends BaseController {
             int testId = test.getId();
             String key = String.valueOf(testId);
             String answer = request.getParameter(key);
-            StudentTest studentTest = new StudentTest(null, studentId, testId, answer);
+            StudentTest studentTest = new StudentTest(null, studentId, testId, answer, null);
             studenttestService.create(studentTest);
         }
         return "redirect:/index.jsp";
