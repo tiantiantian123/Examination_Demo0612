@@ -3,6 +3,7 @@ package demo.model;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by non-perfectionist
@@ -34,4 +35,6 @@ public class Student extends BaseModel {
     private Class clazz;
     // one to one
     private IP ip;
+    // one to many
+    private List<StudentCourse> studentCourses;
 }

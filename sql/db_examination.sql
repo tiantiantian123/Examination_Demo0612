@@ -180,17 +180,17 @@ CREATE TABLE db_examination.student_test (
 )
   COMMENT '学生-试题关联表';
 
--- table grade
-DROP TABLE IF EXISTS db_examination.grade;
-CREATE TABLE db_examination.grade (
+-- table student_course
+DROP TABLE IF EXISTS db_examination.student_course;
+CREATE TABLE db_examination.student_course (
   id        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
   COMMENT 'PK',
   studentId INT UNSIGNED COMMENT 'FK 学生ID',
   courseId  INT UNSIGNED COMMENT 'FK 课程ID',
   grade     INT(3) NOT NULL
-  COMMENT '学生成绩'
+  COMMENT '学生课程'
 )
-  COMMENT '学生成绩表';
+  COMMENT '学生课程表';
 
 -- ----------------------- INDEX ------------------------
 CREATE INDEX ind_ip ON db_examination.ip (start, end);
@@ -250,13 +250,13 @@ ALTER TABLE db_examination.student_test
 FOREIGN KEY (testId)
 REFERENCES db_examination.test (id);
 
-ALTER TABLE db_examination.grade
+ALTER TABLE db_examination.student_course
   ADD CONSTRAINT
   fk_grade_studentId
 FOREIGN KEY (studentId)
 REFERENCES db_examination.student (id);
 
-ALTER TABLE db_examination.grade
+ALTER TABLE db_examination.student_course
   ADD CONSTRAINT
   fk_grade_courseId
 FOREIGN KEY (courseId)
@@ -300,22 +300,9 @@ UPDATE db_examination.class_paper
 SET time = '2016-06-02 23:00:00'
 WHERE id = 1;
 
-SELECT
-  s.username,
-  c1.title,
-  c2.title,
-  g.grade
-FROM db_examination.student s INNER JOIN db_examination.course c1
-  INNER JOIN db_examination.class c2
-  LEFT OUTER JOIN db_examination.grade g
-    ON
-      s.id = g.studentId
-      AND s.classId = c2.id
-      AND c1.id = g.courseId
-WHERE c2.id = #{classId} AND c1.id = #{courseId};
-
 SELECT *
-FROM db_examination.student;
-
-SELECT *
-FROM db_examination.grade;
+FROM db_examination.student s INNER JOIN db_examination.class c1
+  INNER JOIN db_examination.course c2
+  LEFT JOIN db_examination.student_course sc
+    ON s.id = sc.studentId AND c2.id = sc.courseId AND s.classId = c1.id
+WHERE c1.id = 1 AND c2.id = 2;

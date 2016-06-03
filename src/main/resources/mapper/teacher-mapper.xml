@@ -37,5 +37,30 @@
                 ON cp.classId = c1.id AND cp.paperId = p.id AND p.courseId = c2.id
         WHERE status = 2 -- 考试完成
     </select>
-
+    <resultMap id="student_course_map" type="student">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <association property="clazz" javaType="class">
+            <result property="title" column="title"/>
+        </association>
+        <collection property="studentCourses" ofType="studentcourse">
+            <result property="grade" column="grade"/>
+            <association property="course" javaType="course">
+                <result property="title" column="title_course"/>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="student_course" resultMap="student_course_map" parameterType="hashmap">
+        SELECT
+            c1.title,
+            c2.title AS title_course,
+            s.id,
+            s.username,
+            sc.grade
+        FROM db_examination.student s INNER JOIN db_examination.class c1
+            INNER JOIN db_examination.course c2
+            LEFT JOIN db_examination.student_course sc
+                ON s.id = sc.studentId AND c2.id = sc.courseId AND s.classId = c1.id
+        WHERE c1.id = #{classId} AND c2.id = #{courseId};
+    </select>
 </mapper>

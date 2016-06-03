@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created at 221
@@ -36,5 +38,14 @@ public class TeacherController extends BaseController {
             request.setAttribute("message", "用户名或密码错误");
             return "/teacher/index";
         }
+    }
+
+    @RequestMapping("studentCourse")
+    private String studentCourse() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("classId", 1);
+        map.put("courseId", 2);
+        session.setAttribute("studentCourses", teacherService.list("teacher.student_course", map));
+        return "redirect:/teacher/student_course.jsp";
     }
 }
