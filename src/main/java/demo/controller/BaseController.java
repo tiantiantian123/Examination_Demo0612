@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author mingfei.net@Gmail.com
+ * 
  * 19:40, 16-5-20.
  */
 public class BaseController {
